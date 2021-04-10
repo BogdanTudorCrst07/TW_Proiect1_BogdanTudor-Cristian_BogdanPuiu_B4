@@ -184,11 +184,9 @@
         left:100px;
         top: 210%;
       }
-      
-      .startCookingBtn:hover {
-        background-color: #ffffff;
-        color: #000000;
-      }
+    .joinusPage{
+      opacity:0;
+    }
       
   }
  

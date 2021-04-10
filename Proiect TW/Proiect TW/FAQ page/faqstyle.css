@@ -123,3 +123,63 @@ h2
   margin-top: 20px;
   margin-bottom: 20px;
 }
+@media screen and (max-width:320px)
+{
+  body{
+    width: 400%;
+  }
+  .title{
+    width: 160%;
+  }
+  .topNavBar {
+    background-color: #FFFFFF;
+    height: 80%;
+    width: 80%;
+    overflow: hidden;
+  }
+  
+  .topLogo {
+    width: 60%;
+    height: 60%;
+    margin-top: 1.3em;
+    margin-bottom: 2em;
+    margin-left:20em;
+
+  }
+  
+  .navbarItem{
+      width: 35%;
+      height:50%;
+      flex-direction: column;
+      text-align: center;
+      font-size: 60px;
+      padding:10px;
+  }
+  .frontImage{
+    width: 120%;
+  }
+  h1{
+    font-size: 60px;
+  }
+  .title-txt{
+    font-size: 50px;
+  }
+  .fill-txt{
+    font-size: 45px;
+  }
+  h2{
+    font-size: 50px;
+  }
+  .question-box{
+    height: 20%;
+  }
+  .question-txt{
+      font-size: 45px;
+  }
+  .answear-box{
+    height: 20%;
+  }
+  .answear-txt{
+      font-size: 45px;
+  }
+}
