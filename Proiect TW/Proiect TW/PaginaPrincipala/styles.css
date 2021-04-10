@@ -1,0 +1,404 @@
+.title {
+  background: #FFFFFF;
+}
+
+/*/////////////////////////////TOP NAVBAR/////////////////////////////*/
+.topNavBar {
+  background-color: #FFFFFF;
+}
+
+.topLogo {
+  width: 13%;
+  height: 13%;
+  margin-top: 1.3em;
+  margin-bottom: 2em;
+  margin-left: 4em;
+  float: left;
+}
+
+.topNavBar {
+  height: 30%;
+}
+
+.navbarItem {
+  float: right;
+  text-align: center;
+  padding: 17px;
+  margin-top: 2em;
+  margin-right: 3em;
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+}
+
+a {
+  color: #000000;
+}
+
+a:hover {
+  color: #c2c2c2;
+}
+
+.navbarActions {
+  list-style-type: none;
+}
+
+/*/////////////////////////////END TOP NAVBAR/////////////////////////////*/
+/*/////////////////////////////FRONT PAGE/////////////////////////////*/
+.frontImage {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.bigFrontText1 {
+  font-family: 'Prata', serif;
+  position: absolute;
+  top: 30%;
+  left: 5%;
+  font-size: 45px;
+}
+
+.bigFrontText2 {
+  font-family: 'Prata', serif;
+  position: absolute;
+  top: 40%;
+  left: 5%;
+  font-size: 45px;
+}
+
+.smallFrontText1 {
+  font-family: 'Cormorant Garamond', serif;
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  font-size: 25px;
+}
+
+.smallFrontText2 {
+  font-family: 'Cormorant Garamond', serif;
+  position: absolute;
+  top: 55%;
+  left: 5%;
+  font-size: 25px;
+}
+
+.smallFrontText3 {
+  font-family: 'Cormorant Garamond', serif;
+  position: absolute;
+  top: 60%;
+  left: 5%;
+  font-size: 25px;
+}
+
+.exploreBtn {
+  background-color: #ffffff;
+  border-radius: 28px;
+  border: 1px solid #000000;
+  display: inline-block;
+  cursor: pointer;
+  color: #000000;
+  font-family: Arial;
+  font-size: 17px;
+  font-weight: bold;
+  padding: 17px 53px;
+  text-decoration: none;
+  position: absolute;
+  top: 75%;
+  left: 5%;
+}
+
+.exploreBtn:hover {
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
+.exploreBtn:active {
+  position: relative;
+  top: 1px;
+}
+
+/*/////////////////////////////END FRONT PAGE/////////////////////////////*/
+/*/////////////////////////////DESCRIPTION PAGE/////////////////////////////*/
+.Description {
+  background-color: black;
+}
+
+.descriptionBackImage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.descriptionTitle {
+  position: absolute;
+  top: 120%;
+  left: 5%;
+  font-family: 'Prata', serif;
+  color: #FFFFFF;
+  font-size: 35px;
+}
+
+.descriptionText {
+  position: absolute;
+  top: 130%;
+  left: 5%;
+  color: #FFFFFF;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+}
+
+.descriptionText2 {
+  position: absolute;
+  top: 133%;
+  left: 5%;
+  color: #FFFFFF;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+}
+
+.descriptionText3 {
+  position: absolute;
+  top: 136%;
+  left: 5%;
+  color: #FFFFFF;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+}
+
+.descriptionText4 {
+  position: absolute;
+  top: 139%;
+  left: 5%;
+  color: #FFFFFF;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+}
+
+.descriptionText5 {
+  position: absolute;
+  top: 142%;
+  left: 5%;
+  color: #FFFFFF;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+}
+
+.mealMeniuBtn {
+  background-color: #000000;
+  border-radius: 28px;
+  border: 1px solid #ffffff;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 17px;
+  font-weight: bold;
+  padding: 17px 53px;
+  text-decoration: none;
+  position: absolute;
+  top: 156%;
+  left: 5%;
+}
+
+.mealMeniuBtn:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.mealMeniuBtn:active {
+  position: relative;
+  top: 1px;
+}
+
+/*/////////////////////////////END DESCRIPTION PAGE/////////////////////////////*/
+
+/*/////////////////////////////REVIEWS PAGE/////////////////////////////*/
+.Reviews
+{
+  background: white;
+  height: 300px;
+}
+.ReviewCard
+{
+  margin-bottom: 100px;
+  width: 500px;
+  height: 300px;
+  float: left;
+  margin-top: 50px;
+}
+.reviewTitle
+{
+  font-family: 'Prata', serif;
+  text-align: center;
+  font-size: 40px;
+  margin-top: 80px;
+}
+.userPhoto
+{
+  width: 140px;
+  height: 140px;
+  justify-content: center;
+  display: flex;
+  margin: 0 auto;
+}
+.userTitle
+{
+  font-family: 'Prata', serif;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.userReview
+{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-style: italic;
+  line-height: 3px;
+  text-align: center;
+
+}
+/*/////////////////////////////END REVIEWS PAGE/////////////////////////////*/
+/*/////////////////////////////CHOOSEUS PAGE/////////////////////////////*/
+.divider
+{
+  border:none;
+  border-top:1px dotted black;
+  color:black;
+  background-color:black;
+  height:1px;
+  width:50%;
+}
+.chooseusTitle
+{
+  font-family: 'Prata', serif;
+  text-align: center;
+  font-size: 40px;
+  margin-top: 80px;
+}
+.chooseusCard
+{
+  margin-bottom: 100px;
+  width: 500px;
+  height: 300px;
+  float: left;
+  margin-top: 50px;
+}
+.chooseusIcon
+{
+  width: 80px;
+  height: 80px;
+  justify-content: center;
+  display: flex;
+  margin: 0 auto;
+  padding-bottom: 30px;
+}
+.chooseusName
+{
+  font-family: 'Prata', serif;
+  text-align: center;
+  font-size: 20px;
+
+}
+.chooseusDescription
+{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-style: italic;
+  line-height: 3px;
+  text-align: center;
+}
+/*/////////////////////////////END CHOOSEUS PAGE/////////////////////////////*/
+/* /////////////////////JOINUS PAGE///////////////////// */
+.endBackgroundImg
+{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.joinusTitle
+{
+  font-family: 'Prata', serif;
+  font-size: 30px;
+  color: white;
+  left: 5%;
+  top: 360%;
+  position: absolute;
+}
+.joinusDescription1
+{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  color: white;
+  left: 5%;
+  top: 370%;
+  position: absolute;
+}
+.joinusDescription2
+{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  color: white;
+  left: 5%;
+  top: 374%;
+  position: absolute;
+}
+.joinusDescription3
+{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  color: white;
+  left: 5%;
+  top: 378%;
+  position: absolute;
+}
+.startCookingBtn {
+  background-color: #000000;
+  border-radius: 28px;
+  border: 1px solid #ffffff;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 17px;
+  font-weight: bold;
+  padding: 17px 53px;
+  text-decoration: none;
+  position: absolute;
+  top: 395%;
+  left: 5%;
+}
+
+.startCookingBtn:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.startCookingBtn:active {
+  position: relative;
+  top: 1px;
+}
+/* /////////////////////END JOINUS PAGE///////////////////// */
+/* /////////////////////FOOTER PAGE///////////////////// */
+.footerText
+{
+  color: #D3D3D3;
+  text-align: center;
+  font-size: 12px;
+  font-family: 'Lato', sans-serif;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+/* /////////////////////END FOOTER PAGE///////////////////// */
+@media screen and (max-width:320px)
+{
+  .topNavBar
+  {
+    display: none;
+  }
+  .topLogo
+  {
+    display: none;
+  }
+}
