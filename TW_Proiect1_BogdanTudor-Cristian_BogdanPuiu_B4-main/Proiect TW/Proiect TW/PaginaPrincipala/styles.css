@@ -393,7 +393,7 @@ a:hover {
 /* /////////////////////END FOOTER PAGE///////////////////// */
 @media screen and (max-width:320px)
 {
-  .title{
+   .title{
     width: 160%;
   }
   .topNavBar {
@@ -436,7 +436,7 @@ a:hover {
     background-color: #ffffff;
     border-radius: 28px;
     border: 1px solid #000000;
-   /* display: inline-block; */
+    display: inline-block; 
     cursor: pointer;
     color: #000000;
     font-family: Arial;
@@ -500,5 +500,5 @@ a:hover {
   .joinusPage
 {
   visibility: hidden;
-}
+} 
 }
