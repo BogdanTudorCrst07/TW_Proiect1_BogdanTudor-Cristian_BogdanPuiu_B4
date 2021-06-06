@@ -30,6 +30,8 @@ function getIndexHTML(req, res) {
     res.end('Internal server error')
   }
 }
+
+
 function getIndexCSS(req, res) {
   try {
     res.statusCode = 200
@@ -118,5 +120,7 @@ function getIcon(req, res) {
     res.end('Internal server error')
   }
 }
+
+
 
 module.exports = { getIndexHTML, getIndexCSS, getImage, getBkTitle, getIcon }

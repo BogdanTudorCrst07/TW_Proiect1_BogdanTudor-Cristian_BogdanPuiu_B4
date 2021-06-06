@@ -12,6 +12,10 @@ module.exports={
     descriptionImgIndex:'./PaginaPrincipala/Description_div_image-01.png',
     logoForLabelIndex1:'./PaginaPrincipala/logo1-01.png',
     logoForLabelIndex2:'./PaginaPrincipala/logo2-01.png',
-    logoForLabelIndex3:'./PaginaPrincipala/logo3-01.png'
-    
+    logoForLabelIndex3:'./PaginaPrincipala/logo3-01.png',
+    twitterIcon:'./Contact/twitter-icon-01.png',
+    contactBk:'./Contact/contactus-backgrounf-01.png',
+    contactLogo:'./Contact/logoRecipeCentralNormal-01.png',
+    instagramIcon:'./Contact/instagram-icon-01.png',
+    phoneIcon:'./Contact/phone-icon-01.png'
 }
