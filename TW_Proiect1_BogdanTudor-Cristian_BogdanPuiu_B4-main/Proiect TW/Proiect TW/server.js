@@ -19,7 +19,7 @@ const { WTFood } = require('./utilities/WTFood')
 //const {db} = require('../utilities/const')
 const { Router } = require('./utilities/Router')
 const { index } = require('./routes/index')
-
+const {faq}=require('./routes/faq')
 const router = new Router()
 router.use('', index)
 console.log(router)
