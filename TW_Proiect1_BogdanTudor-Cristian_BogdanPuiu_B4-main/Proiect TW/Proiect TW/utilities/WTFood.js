@@ -15,15 +15,8 @@ class WTFood{
     }
 
     async listen(){
-        const app=this
-        
-       /* await mongoose.connect(db_url, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true
-          })
-          */
-         const server=http.createServer(function(req,res){
+        var app=this
+         var server=http.createServer(function(req,res){
              app.router.route(req,res)
          })
          server.listen(port)
