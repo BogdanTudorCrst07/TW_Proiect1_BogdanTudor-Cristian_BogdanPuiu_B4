@@ -1,6 +1,7 @@
 const http=require('http')
 const {port} = require('../utilities/const')
-
+const mongoose=require('mongoose')
+const {db_url}=require('../utilities/const')
 // const {db_link}=require('../utilities/const')
 //const mongoose=require('mongoose')
 
@@ -15,6 +16,12 @@ class WTFood{
     }
 
     async listen(){
+
+        await mongoose.connect(db_url, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useCreateIndex: true
+          })
         var app=this
          var server=http.createServer(function(req,res){
              app.router.route(req,res)

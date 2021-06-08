@@ -1,7 +1,7 @@
 let http = require('http')
 const mongoose = require('mongoose')
-const {userModel}=require("./models")
-const url = "mongodb+srv://admin:admin@cluster0.lzkrj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+const { userModel } = require("./models")
+const {db_url} = require('./utilities/const')
 // mongoose.connect(url).then(async res => {
 
 //     console.log("connected")
@@ -19,7 +19,7 @@ const { WTFood } = require('./utilities/WTFood')
 //const {db} = require('../utilities/const')
 const { Router } = require('./utilities/Router')
 const { index } = require('./routes/index')
-const {faq}=require('./routes/faq')
+const { faq } = require('./routes/faq')
 const router = new Router()
 router.use('', index)
 console.log(router)

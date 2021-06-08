@@ -9,8 +9,8 @@ class Router{
         for(aux in router.getRoutes){
             this.getRoutes[url+aux]=router.getRoutes[aux]
         }
-        for (el in router.postRoutes) {
-            this.postRoutes[url + el] = router.postRoutes[el]
+        for (aux in router.postRoutes) {
+            this.postRoutes[url + aux] = router.postRoutes[aux]
           }
     }
 
