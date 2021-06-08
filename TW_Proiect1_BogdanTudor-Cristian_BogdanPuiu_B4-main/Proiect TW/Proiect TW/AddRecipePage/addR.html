@@ -8,6 +8,7 @@
     <title>RecipeCentral</title>
     <link rel="stylesheet" href="addR.css">
     <link rel="icon" href="favicon.ico">
+    <script src="addR.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -43,18 +44,20 @@
         <div class="add_card">
             <h3 class="title">Have a unique recipe ?</h3>
             <h2 class="title">Share it with everyone down below.</h2>
-            <input type="text" class="add_space" placeholder="Name of the Recipe:">
-            <input type="text" class="add_space" placeholder="Your Name:">
-            <textarea rows="4" cols="80" placeholder="Add the ingredients you used..." class="text_add"></textarea>
-            <textarea rows="4" cols="80" placeholder="Start typing your Recipe..." class="text_add"></textarea>
+            <form action="POST">
+            <input type="text" class="add_space" placeholder="Name of the Recipe:" name="name">
+            <input type="text" class="add_space" placeholder="Your Name:" name="owner">
+            <textarea rows="4" cols="80" placeholder="Add the ingredients you used..." class="text_add" name="ingredients"></textarea>
+            <textarea rows="4" cols="80" placeholder="Start typing your Recipe..." class="text_add" name="description"></textarea>
             <div class="Buttons">
-                <button type="button" class="exploreBtn">
+                <button type="button" class="exploreBtn" onclick="addItem();">
                     Add
                 </button>
                 <button type="button" class="exploreBtn">
                     Search
                 </button>
             </div>
+            </form>
         </div>
     </div>
 </body>
