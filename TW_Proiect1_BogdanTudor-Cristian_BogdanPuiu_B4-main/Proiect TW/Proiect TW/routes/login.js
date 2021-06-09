@@ -9,5 +9,5 @@ router.get('/Login/logoRecipeCentralNormal-01.png', loginController.getImage)
 router.get('/Login/background-img.png', loginController.getBk)
 router.get('/Login/favicon.ico', loginController.getIcon)
 router.get('/Login/login.js',loginController.getScript)
-
+router.post('/login/user',loginController.login)
 module.exports = router

@@ -13,14 +13,9 @@ function login(){
             },
             body: JSON.stringify(user)
         }
-    ).then(function(response){
-        if(!response.ok)
-        {
-            onError(response.json())
-        }
-        else {
-            onSucces(response.json())
-        }
+    ).then(res=> res.json()).then(function (response) {
+            console.log(response.body.token)
+        })
 
-    })
+    
 }

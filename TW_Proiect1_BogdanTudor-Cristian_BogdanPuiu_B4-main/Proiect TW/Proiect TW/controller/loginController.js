@@ -1,12 +1,16 @@
 const { exception } = require('console')
 const fs = require('fs')
-
+const bcrypt = require('bcrypt')
 let loginHTML = './Login/login.html'
 let loginCSS = './Login/login.css'
 let { contactLogo } = require('../utilities/const')
 let bk = './Login/background-img.png'
 let icon = './Login/favicon.ico'
-let script="./Login/login.js"
+let script = "./Login/login.js"
+const User = require("../models/user")
+const jwt = require('jsonwebtoken')
+const constants = require('../utilities/const')
+const cookie = require("cookie")
 
 function getLoginHTML(req, res) {
     try {
@@ -116,7 +120,7 @@ function getIcon(req, res) {
     }
 }
 
-function getScript(req,res){
+function getScript(req, res) {
     try {
         res.statusCode = 200
         res.setHeader('Content-Type', 'text/javascript')
@@ -138,4 +142,50 @@ function getScript(req,res){
     }
 }
 
-module.exports = { getLoginHTML, getLoginCSS, getImage, getBk, getIcon ,getScript}
+module.exports = { getLoginHTML, getLoginCSS, getImage, getBk, getIcon, getScript }
+
+module.exports.login = async (req, res) => {
+    var body = ""
+    req.on("data", function (data) {
+        body += data;
+    })
+    req.on("end", async function () {
+        req.body = body
+        res.setHeader('Content-type', 'application/json')
+      //  console.log(req.body)
+
+        req.body = JSON.parse(req.body)
+        if (!req.body.name) {
+            console.log('err1')
+            res.statusCode = 400
+            res.write(JSON.stringify({ success: false, message: '"name" is required' }))
+            res.end()
+            return
+        }
+        if (!req.body.password) {
+            console.log('err2')
+            res.statusCode = 400
+            res.write(JSON.stringify({ success: false, message: '"password" is required' }))
+            res.end()
+            return
+        }
+
+        const user = await User.findOne({ name: req.body.name })
+        if (user) {
+            if (bcrypt.compareSync(req.body.password, user.password)) {
+                const token = jwt.sign(req.body, constants.secret)
+                res.write(JSON.stringify({ succes: true, token: token }))
+                res.end()
+            }
+            else {
+                res.statusCode = 403
+                res.write(JSON.stringify({ success: false, message: 'invalid password' }))
+                res.end()
+            }
+        } else {
+            res.statusCode = 403
+            res.write(JSON.stringify({ success: false, message: 'invalid entry' }))
+            res.end()
+        }
+    })
+}

@@ -9,6 +9,8 @@ mongoose.connect(db_url).then(async res => {
     const allIngredients=await ingredientModel.find({})
     //console.log(allRecipes)
     console.log(allIngredients)
+
+
 })
 
 // mongoose.connect(url).then(async res => {

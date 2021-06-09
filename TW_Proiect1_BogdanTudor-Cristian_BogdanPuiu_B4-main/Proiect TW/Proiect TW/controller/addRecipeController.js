@@ -9,6 +9,7 @@ let bk = './AddRecipePage/background-img.png'
 let logo = './AddRecipePage/logoRecipeCentralNormal-01.png'
 let script = './AddRecipePage/addR.js'
 const Recipe = require('../models/recipe')
+const { isAuth } = require('../routes/isAuth')
 
 function getHTML(req, res) {
     try {
@@ -159,7 +160,7 @@ module.exports.addRecipe = async (req, res) => {
             return
         }
 
-
+    
         const recipe = await Recipe.findOne({ name: req.body.name })
         if (recipe) {
             res.statusCode = 403

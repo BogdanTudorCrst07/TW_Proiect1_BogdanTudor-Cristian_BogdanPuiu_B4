@@ -2,6 +2,7 @@ module.exports = {
     port: 5000,
     db_url:'mongodb+srv://admin:admin@cluster0.lzkrj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
     ourUrl: 'http://localhost:5000',
+    secret:'https://jwt.io/#debugger-io?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ',
     favIco: './PaginaPrincipala//favicon.ico',
     logoIndex: './PaginaPrincipala/logoRecipeCentralNormal-01.png',
     backgroundIndex: './PaginaPrincipala/Front_Page_background-01.png',
