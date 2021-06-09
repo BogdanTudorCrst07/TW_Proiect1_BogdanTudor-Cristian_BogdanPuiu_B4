@@ -8,8 +8,9 @@ let image = './SearchPage/logoRecipeCentralNormal-01.png'
 let bk = './SearchPage/background-img.png'
 let script = './SearchPage/search.js'
 let icon = './SearchPage/favicon.ico'
-const Recipe=require('../models/recipe.js')
-
+const Recipe = require('../models/recipe.js')
+const { ourUrl } = require('../utilities/const')
+const { port } = require('../utilities/const')
 
 function getHTML(req, res) {
     try {
@@ -155,7 +156,6 @@ module.exports.filterRecipes = async (req, res) => {
     req.on("end", async function () {
         req.body = body
         res.setHeader('Content-type', 'application/json')
-        //console.log(req.body)
 
         req.body = JSON.parse(req.body)
         if (!req.body) {
@@ -165,19 +165,20 @@ module.exports.filterRecipes = async (req, res) => {
             res.end()
             return
         }
-       // console.log(req.body)
-        let ingredients=req.body
-       // console.log(ingredients)
-        let recipe = await Recipe.find({ ingredients: { $in: ingredients }})
-       // console.log(recipe)
+
+        let ingredients = req.body
+        let recipe = await Recipe.find({ ingredients: { $in: ingredients } })
+        console.log(recipe)
+
         if (!recipe[0]) {
             res.statusCode = 403
             res.write(JSON.stringify({ success: false, message: 'not a recipe found' }))
             res.end()
         } else {
-           
-            console.log(recipe)
-           
+
+            res.statusCode = 200
+            res.write(JSON.stringify({ success: true, recipe }))
+            res.end()
         }
     })
 }
