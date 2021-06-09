@@ -5,7 +5,7 @@ function addItem(){
         name: document.getElementsByName("name")[0].value,
         owner: document.getElementsByName("owner")[0].value,
         ingredients: ingreds,
-        description: document.getElementsByName("description")[0].value
+        desciption: document.getElementsByName("description")[0].value
     }
     fetch(
         '/add/recipe',

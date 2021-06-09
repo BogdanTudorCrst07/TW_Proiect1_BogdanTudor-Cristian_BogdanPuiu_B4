@@ -13,11 +13,15 @@ function searchItem() {
     ).then(res => res.json()).then(function (response) {
         const container = document.getElementById("search-results-container")
         container.innerHTML = ""
+     
         response.recipe.forEach(recipe => {
-            const recipeWrapper = document.createElement("div")
-            recipeWrapper.innerHTML = `Recipe: ${recipe.name}.<br> Ingredients needed: ${recipe.ingredients}.<br>How to prepare it: ${recipe.description}`
-            container.appendChild(recipeWrapper)
-        });
+                const recipeWrapper = document.createElement("div")
+                recipeWrapper.innerHTML = `Recipe: ${recipe.name}.<br> Ingredients needed: ${recipe.ingredients}.<br>How to prepare it: ${recipe.desciption}`
+                container.appendChild(recipeWrapper)
+              
+            }
+           
+        );
 
     })
 }

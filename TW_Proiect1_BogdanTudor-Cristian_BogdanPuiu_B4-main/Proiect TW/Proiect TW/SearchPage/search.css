@@ -19,8 +19,13 @@
 .search_result {
     color: white;
     font-family: 'Prata', serif;
-    text-align: center;
+    text-align: left;
     font-size: 15px;
+    position:absolute;
+     left:80px;
+     width:30%;
+    line-height: 25px;
+    margin-bottom: 50px;
 }
 
 .navbarItem {

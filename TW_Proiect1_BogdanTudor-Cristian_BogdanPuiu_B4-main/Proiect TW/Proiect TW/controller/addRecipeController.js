@@ -152,7 +152,7 @@ module.exports.addRecipe = async (req, res) => {
             res.end()
             return
         }
-        if (!req.body.description) {
+        if (!req.body.desciption) {
             console.log('err4')
             res.statusCode = 400
             res.write(JSON.stringify({ success: false, message: '"description" is required' }))
@@ -171,7 +171,7 @@ module.exports.addRecipe = async (req, res) => {
                 name: req.body.name,
                 owener: req.body.owner,
                 ingredients: req.body.ingredients,
-                description: req.body.description
+                desciption: req.body.desciption
             })
             console.log(recipe_)
             req.body.ingredients.forEach(async (ingredient) => {
@@ -193,12 +193,12 @@ module.exports.addRecipe = async (req, res) => {
                             console.log(err)
                             res.statusCode = 500
                             res.write(JSON.stringify({ success: false, message: 'Internal server error' }))
-                            //res.end()
+                         
                         }
                         else {
                             res.statusCode = 200
                             res.write(JSON.stringify({ success: true, message: 'ingredient created' }))
-                            // res.end()
+                            
                         }
                     })
                 }
