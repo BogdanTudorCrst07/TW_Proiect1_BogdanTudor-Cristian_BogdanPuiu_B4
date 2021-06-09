@@ -16,6 +16,12 @@
 .topNavBar {
     height: 30%;
 }
+.search_result {
+    color: white;
+    font-family: 'Prata', serif;
+    text-align: center;
+    font-size: 15px;
+}
 
 .navbarItem {
     float: right;
