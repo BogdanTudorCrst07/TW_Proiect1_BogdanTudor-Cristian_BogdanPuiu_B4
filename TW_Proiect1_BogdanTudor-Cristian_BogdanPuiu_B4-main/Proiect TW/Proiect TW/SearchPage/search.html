@@ -7,6 +7,7 @@
     <title>Home-RecipeCentral</title>
     <link rel="stylesheet" href="search.css">
     <link rel="icon" href="favicon.ico">
+    <script src="search.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -40,15 +41,17 @@
     </div>
     <div class="search_area">
         <h3 class="title"> Start searching trough recipes right here :</h3>
-        <input type="search" name="" value="" placeholder="Just type your ingredients:" class="searchBarItem">
+        
+        <input type="search"  value="" placeholder="Just type your ingredients:" class="searchBarItem" name="search">
         <div class="buttons">
-            <button type="button" class="exploreBtn">
+            <button type="button" class="exploreBtn" onclick="searchItem();">
           Search
         </button>
             <a href="../AddRecipePage/addR.html" style="text-decoration: none;"><button type="button" class="exploreBtn">
                 Add One
               </button></a>
         </div>
+    
         <h2 class="description"> Millions of recipes at a touch of a button.</h2>
         <h2 class="description2"> Cooking made easier than ever!</h2>
     </div>

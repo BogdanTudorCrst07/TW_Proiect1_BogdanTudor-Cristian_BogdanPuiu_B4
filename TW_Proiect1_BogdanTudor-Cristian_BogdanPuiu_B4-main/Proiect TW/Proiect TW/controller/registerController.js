@@ -2,7 +2,6 @@ const { exception } = require('console')
 const fs = require('fs')
 
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
 const User=require('../models/user')
 
 let registerHTML = './Register/register.html'

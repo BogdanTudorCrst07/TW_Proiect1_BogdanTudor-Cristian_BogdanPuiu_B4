@@ -179,7 +179,7 @@ module.exports.addRecipe = async (req, res) => {
                 if (aux) {
                     res.statusCode = 403
                     res.write(JSON.stringify({ success: false, message: 'ingredient is already being used' }))
-                    console.log("S a ajuns aici")
+                    
                     //res.end()
                 }
                 else {

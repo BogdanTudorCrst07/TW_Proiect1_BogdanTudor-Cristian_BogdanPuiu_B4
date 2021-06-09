@@ -6,6 +6,7 @@ let loginCSS = './Login/login.css'
 let { contactLogo } = require('../utilities/const')
 let bk = './Login/background-img.png'
 let icon = './Login/favicon.ico'
+let script="./Login/login.js"
 
 function getLoginHTML(req, res) {
     try {
@@ -115,4 +116,26 @@ function getIcon(req, res) {
     }
 }
 
-module.exports = { getLoginHTML, getLoginCSS, getImage, getBk, getIcon }
+function getScript(req,res){
+    try {
+        res.statusCode = 200
+        res.setHeader('Content-Type', 'text/javascript')
+        fs.readFile(script, null, function (error, script) {
+            if (error) {
+                res.statusCode = 500
+                res.setHeader('Content-Type', 'text/html')
+                res.end('Internal server error')
+            }
+            else {
+                res.end(script)
+            }
+        })
+    } catch (e) {
+        console.log(e)
+        res.statusCode = 500
+        res.setHeader('Content-Type', 'text/html')
+        res.end('Internal server error')
+    }
+}
+
+module.exports = { getLoginHTML, getLoginCSS, getImage, getBk, getIcon ,getScript}

@@ -3,9 +3,12 @@ const fs = require('fs')
 
 
 let searchHTML = './SearchPage/search.html'
-let searchCSS='./SearchPage/search.css'
-let image='./SearchPage/logoRecipeCentralNormal-01.png'
-let bk='./SearchPage/background-img.png'
+let searchCSS = './SearchPage/search.css'
+let image = './SearchPage/logoRecipeCentralNormal-01.png'
+let bk = './SearchPage/background-img.png'
+let script = './SearchPage/search.js'
+let icon = './SearchPage/favicon.ico'
+const Recipe=require('../models/recipe.js')
 
 
 function getHTML(req, res) {
@@ -95,6 +98,86 @@ function getBk(req, res) {
     }
 }
 
+function getScript(req, res) {
+    try {
+        res.statusCode = 200
+        res.setHeader('Content-Type', 'text/javascipt')
+        fs.readFile(script, null, function (error, script) {
+            if (error) {
+                res.statusCode = 500
+                res.setHeader('Content-Type', 'text/html')
+                res.end('Internal server error')
+            }
+            else {
+                res.end(script)
+            }
+        })
+    } catch (e) {
+        console.log(e)
+        res.statusCode = 500
+        res.setHeader('Content-Type', 'text/html')
+        res.end('Internal server error')
+    }
+}
 
 
-module.exports={getHTML,getCSS,getImage,getBk}
+function getIcon(req, res) {
+    try {
+        res.statusCode = 200
+        res.setHeader('Content-Type', 'image/png')
+        fs.readFile(icon, null, function (error, icon) {
+            if (error) {
+                res.statusCode = 500
+                res.setHeader('Content-Type', 'text/html')
+                res.end('Internal server error')
+            }
+            else {
+                res.end(icon)
+            }
+        })
+    } catch (e) {
+        console.log(e)
+        res.statusCode = 500
+        res.setHeader('Content-Type', 'text/html')
+        res.end('Internal server error')
+    }
+}
+
+
+module.exports = { getHTML, getCSS, getImage, getBk, getScript, getIcon }
+
+
+module.exports.filterRecipes = async (req, res) => {
+    var body = ""
+    req.on("data", function (data) {
+        body += data;
+    })
+    req.on("end", async function () {
+        req.body = body
+        res.setHeader('Content-type', 'application/json')
+        //console.log(req.body)
+
+        req.body = JSON.parse(req.body)
+        if (!req.body) {
+            console.log('err1')
+            res.statusCode = 400
+            res.write(JSON.stringify({ success: false, message: '"name" is required' }))
+            res.end()
+            return
+        }
+       // console.log(req.body)
+        let ingredients=req.body
+       // console.log(ingredients)
+        let recipe = await Recipe.find({ ingredients: { $in: ingredients }})
+       // console.log(recipe)
+        if (!recipe[0]) {
+            res.statusCode = 403
+            res.write(JSON.stringify({ success: false, message: 'not a recipe found' }))
+            res.end()
+        } else {
+           
+            console.log(recipe)
+           
+        }
+    })
+}
