@@ -1,0 +1,151 @@
+# Proiect-TW
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <header>
+        <h1>Recipe Central</h1>
+        <h3>WhaF (What the Food)</h3>
+        <dl>
+            <dt>Authors</dt>
+            <dd><a href="https://github.com/BogdanTudorCrst07">Bogdan Tudor-Cristian</a> (2B4), <a href="https://github.com/BogdanPuiu04">Puiu Bogdan-Marian</a> (2B4)</dd>
+            <dt>Coordinator</dt>
+            <dd><a href="https://github.com/acip">Amariei Ciprian</a></dd>
+            <dt>Faculty of Computer Science, "Alexandru Ioan Cuza" University, Iași, Romania</dt>
+            <dt>Web Tehnologies Course</dt>
+        </dl>
+        <div role="contentinfo">
+            <ol role="directory">
+                <li><a href="#1-project-details">Project Details</a> </li>
+                <li><a href="#2-introduction">Introduction</a> </li>
+                <ol>
+                    <li><a href="#21-the-project">The Project</a></li>
+                    <li><a href="#22-what-the-food">What the Food</a></li>
+                </ol>
+                <li><a href="#3-user-interface">User Interface</a>
+                    <ol role="structure-directory">
+                        <li><a href="#31-landing-page">Landing Page</a></li>
+                        <li><a href="#32-Login-Page">Login Page</a></li>
+                        <ol>
+                            <li><a href="#321-Loged-In">Loged In</a></li>
+                            <li><a href="#322-Register">Register</a></li>
+                        </ol>
+                        <li><a href="#33-the-search-page">The search Page</a></li>
+                        <li><a href="#34-the-add-recipe-page">The Add Recipe Pgae</a></li>
+                        <li><a href="#35-the-FAQ-page">The FAQ page</a></li>
+                        <li><a href="#35-the-contact-us-page">The Contact us Page</a></li>
+                    </ol>
+                </li>
+                <li><a href="#4-use-cases">Use-cases</a>
+                    <ol>
+                        <li><a href="#41-the-user-register-or-log-into-an-account">The user register or log into an account</a></li>
+                        <li><a href="#42-the-user-post-a-new-announce">The user is looking up a recipe</a></li>
+                        <li><a href="#43-the-user-search-announces-by-keywords">The user adds his own recipe</a></li>
+                    </ol>
+                </li>
+                <li><a href="#5-future-objectives">Future objectives</a>
+                    <ol>
+                        <li><a href="#51-overview">Overview</a></li>
+                        <li><a href="#52-the-database">The Database</a></li>
+                        <li><a href="#53-the-gamification-system">What the Food</a></li>
+                    </ol>
+                </li>
+            </ol>
+        </div>
+        <section id="project-details" role="doc-abstract">
+            <h2>1. Project details</h2>
+            <p>Se doreste creare unei aplicatii de retete culinare care permite sugerarea de retete pe baza unor ingrediente minimizand numarul de ingrediente suplimentare necesare. Un utilizator va putea adauga retete (ingrediente, pasi de preparare, dificultate,
+                durata preparare, durata finalizare). Vizitatorii pot cauta retete introducand ingredientele pe care le au la dispozitie si o serie de alte criterii suplimentare, cum ar fi: ingrediente suplimentare indezirabile, dificultate, durata preparare,
+                durata finalizare etc.). Lista rezultatelor va putea fi ordonata dupa diverse criterii: popularitate, durata preparare, durata finalizare, dificultate. Utilizatorul poate alege sa marcheze ca a preparat o retata adaugand minim o fotografie
+                cu rezultatul final (in acest fel este determinata popularitate unei retete). Daca utilizatorul care cauta o reteta nu este autentificat, atunci preferintele ultimei cautari vor fi salvate la nivel de browser, altfel in contul utilizatorului
+                respectiv. Se vor oferi clasamente in formatele HTML, CSV si JSON cu cele mai populare retete, cele mai populare ingrediente, ingredientele cele mai evitate.</p>
+        </section>
+        <section id="introduction" role="doc-introduction">
+            <h2>2. Introduction</h2>
+            <p>"Recipe Central" is a website created by 2 students in the second year at the Faculty of Computer Science, the role of the project is to help users find recipes based on the ingridients that they have.</p>
+        </section>
+        <section id="introduction__project" role="doc-introduction">
+            <h3>3. What is Recipe Central?</h3>
+            <p>"Recipe Central" is a website that helps user find easier recipes by just using thew ingredients that they have, also it allows them to share their own recipe based on the ingredients that they used.</p>
+            <p>Recipe Central makes cooking easier as you dont have to search troght cooking books for a good recipe, you can find recipes only using the ingredients that you have at hand, by using this website you dont have to waste time to looking and
+                spend more time cooking.</p>
+        </section>
+        <section id="introduction__gamification" role="doc-introduction">
+            <h3>3.1. What is What the Food(Whaf)</h3>
+            <p>What the Food is the concept at the base of the aplication that allows us, to search for recipes based on the minimum amount of ingredients.</p>
+        </section>
+        <section id="structure" role="doc-structure">
+            <h2>4.The FrontEnd</h2>
+            <p>All of the pages have a "navbar" that helps the user explore trought the app easier, it also makes the website a little bit more cleaner because its not flooded with buttons.</p>
+        </section>
+        <section id="structure__landing" role="doc-structure">
+            <h3>4.1. Landing Page</h3>
+            <p>The first page that user will enter upon accessing the website, here we describe the product so we can make it more atractive to the user it also invites the user to use the app trought different butons that allow him to explore the page.</p>
+        </section>
+        <section id="structure__myacc" role="doc-structure">
+            <h3>4.2. Login Page</h3>
+        </section>
+        <section id="structure__myacc_logged" role="doc-structure">
+            <h4>4.2.1. Login </h4>
+            <p>This is the page where the user can login into his account and publish his recipes.</p>
+        </section>
+        <section id="structure__myacc_notlogged" role="doc-structure">
+            <h4>4.2.2. Register</h4>
+            <p>This is the page where the user can authenticate for the first time with new credentials and login in his new account.</p>
+        </section>
+        <section id="structure__announceslist" role="doc-structure">
+            <h3>4.3. FAQ Page</h3>
+            <p>The FAQ page is the page where the client can see the questions that were the most frequnetly asked about the website, its also a way for the user to get to know the website better.</p>
+        </section>
+        <section id="structure__announce" role="doc-structure">
+            <h3>4.4. Contact Us Page</h3>
+            <p>This is the page where the user can see all of our social media platforms and contact us if he wants trought a feedback sesion.
+            </p>
+        </section>
+        <section id="structure__newannounce" role="doc-structure">
+            <h3>4.5. Recipes Page</h3>
+            <p>This Page is broken in two as there is a page where the user can search based on his ingredients a new recipe or he can add one of its own.</p>
+        </section>
+        <section id="use-cases" role="doc-structure">
+            <h2>5. Use cases</h2>
+        </section>
+        <section id="use-cases__account" role="doc-structure">
+            <h3>5.1. The user searches for a recipe based on the ingredients that he put in.</h3>
+            <p>This is when the user uses the search bar provided in the Recipes Tab, there when he types his ingredients the recipes that use those ingredients will appear. </a>.</p>
+        </section>
+        <section id="use-cases__newannounce" role="doc-structure">
+            <h3>5.2. The user creates a new account</h3>
+            <p>The user decides to use the page provided for his registration, here he will input his new username and password for the creation of the new account.</a>.</p>
+        </section>
+        <section id="use-cases__searchannounces" role="doc-structure">
+            <h3>5.3. The user logs in</h3>
+            <p>The user can perform a search based on keywords by entering them in the search bar from the navbar / burger-menu and pressing the "Search" icon. He will be redirected to <a href="structure__announceslist">Search Result Page</a>, where he can
+                find the result.</p>
+        </section>
+        <section id="objectives" role="doc-structure">
+            <h2>6. What we have achieved</h2>
+        </section>
+        <section id="objectives__overview" role="doc-structure">
+            <h3>6.1. Overview</h3>
+            <p>We have managed to create the server using node js.We have created the routing of each page and we have implementated a way for the user to register and log in. We made it possible so the user can use the searchbar coreclty and some result
+                to be shown on the page.We have implemented so the user can add a new recipe to the website.</p>
+        </section>
+        <section id="objectives__db" role="doc-structure">
+            <h3>6.2. The Database</h3>
+            <p>Because it is necesary to store both the recipes and the ingredients somewhere we have created a database using mongoose.</p>
+        </section>
+        <section id="objectives__db" role="doc-structure">
+            <h3>7. Bibliografie</h3>
+            <p>When we have worked on the routing part of the website we have inspired ourselves from <a href="https://github.com/stefanT9/Routing-In-NodeJs">this source.</a></p>
+        </section>
+
+    </header>
+</body>
+
+</html>
