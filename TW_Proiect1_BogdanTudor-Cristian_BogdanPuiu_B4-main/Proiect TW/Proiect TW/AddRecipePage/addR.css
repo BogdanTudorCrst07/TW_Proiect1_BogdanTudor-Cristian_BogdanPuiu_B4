@@ -57,7 +57,7 @@ a:hover {
 .add_card {
     overflow: hidden;
     position: relative;
-    width: 65%;
+    width: 75%;
     height: 77%;
     background: white;
     box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
