@@ -16,6 +16,7 @@ function searchItem() {
      
         response.recipe.forEach(recipe => {
                 const recipeWrapper = document.createElement("div")
+                recipeWrapper.setAttribute("id","recipe-option")
                 recipeWrapper.innerHTML = `Recipe: ${recipe.name}.<br> Ingredients needed: ${recipe.ingredients}.<br>How to prepare it: ${recipe.desciption}`
                 container.appendChild(recipeWrapper)
               

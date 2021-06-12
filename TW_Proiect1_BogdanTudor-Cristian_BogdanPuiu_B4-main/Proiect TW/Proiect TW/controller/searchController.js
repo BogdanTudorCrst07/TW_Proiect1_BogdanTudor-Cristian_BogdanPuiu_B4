@@ -167,15 +167,15 @@ module.exports.filterRecipes = async (req, res) => {
         }
 
         let ingredients = req.body
-        let recipe = await Recipe.find({ ingredients: { $in: ingredients } })
+        let recipe = await Recipe.find({ ingredients: { $all: ingredients } })
         console.log(recipe)
-
+        recipe.sort((a,b)=> a.ingredients.length>b.ingredients.length? 1: -1)
         if (!recipe[0]) {
             res.statusCode = 403
             res.write(JSON.stringify({ success: false, message: 'not a recipe found' }))
             res.end()
         } else {
-
+            
             res.statusCode = 200
             res.write(JSON.stringify({ success: true, recipe }))
             res.end()

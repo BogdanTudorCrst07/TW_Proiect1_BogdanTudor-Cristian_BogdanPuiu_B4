@@ -14,7 +14,7 @@ function login(){
             body: JSON.stringify(user)
         }
     ).then(res=> res.json()).then(function (response) {
-            console.log(response.body.token)
+     
         })
 
     
