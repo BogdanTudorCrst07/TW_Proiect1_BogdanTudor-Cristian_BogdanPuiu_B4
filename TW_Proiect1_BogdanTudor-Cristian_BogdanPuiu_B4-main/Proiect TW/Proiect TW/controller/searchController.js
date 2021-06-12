@@ -11,6 +11,9 @@ let icon = './SearchPage/favicon.ico'
 const Recipe = require('../models/recipe.js')
 const { ourUrl } = require('../utilities/const')
 const { port } = require('../utilities/const')
+var propose=require('propose')
+const Ingredient=require('../models/ingredient')
+
 
 function getHTML(req, res) {
     try {
@@ -165,8 +168,16 @@ module.exports.filterRecipes = async (req, res) => {
             res.end()
             return
         }
-
+        var container=await Ingredient.find({})
+        var dictionary=[]
+        container.forEach(element=>{
+            dictionary.push(element.name)
+        })
         let ingredients = req.body
+        ingredients.forEach(function(part,index){
+            this[index]=propose(this[index],dictionary)
+        },ingredients);
+        console.log(ingredients)
         let recipe = await Recipe.find({ ingredients: { $all: ingredients } })
         console.log(recipe)
         recipe.sort((a,b)=> a.ingredients.length>b.ingredients.length? 1: -1)
