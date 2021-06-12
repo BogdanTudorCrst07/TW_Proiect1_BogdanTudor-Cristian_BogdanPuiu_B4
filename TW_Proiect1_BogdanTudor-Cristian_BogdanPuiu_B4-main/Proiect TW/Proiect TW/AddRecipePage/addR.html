@@ -30,7 +30,7 @@
                 <a href="../Contact/contactindex.html" class="linker" style="text-decoration:none">Contact</a>
             </li>
             <li class="navbarItem">
-                <a href="../SearchPage/search.html" class="linker" style="text-decoration:none">Recipes</a>
+                <a href="../SearchPage/search.html" class="linker" style="text-decoration:none" name="recipes">Recipes</a>
             </li>
             <li class="navbarItem">
                 <a href="../PaginaPrincipala/index.html" class="linker" style="text-decoration:none">Home</a>
@@ -46,12 +46,12 @@
             <h2 class="title">Share it with everyone down below.</h2>
             <form action="POST">
                 <input type="text" class="add_space" placeholder="Name of the Recipe:" name="name">
-                <input type="text" class="add_space" placeholder="Time spent" name="name">
-                <input type="text" class="add_space" placeholder="Finishing Time" name="name">
-                <input type="number" class="add_space" placeholder="Difficulty:" name="name" min="1" max="5" style="width: 150px;">
+                <input type="text" class="add_space" placeholder="Time spent" name="time">
+                <input type="text" class="add_space" placeholder="Finishing Time" name="finish">
+                <input type="number" class="add_space" placeholder="Difficulty:" name="difficulty" min="1" max="5" style="width: 150px;">
                 <input type="text" class="add_space" placeholder="Your Name:" name="owner">
                 <textarea rows="4" cols="80" placeholder="Add the ingredients you used..." class="text_add" name="ingredients"></textarea>
-                <textarea rows="4" cols="80" placeholder="Insert your steps(Hit enter for a new step)" class="text_add" name="description"></textarea>
+                <textarea rows="4" cols="80" placeholder="Insert your steps(Hit enter for a new step)" class="text_add" name="steps"></textarea>
                 <div class="Buttons">
                     <button type="button" class="exploreBtn" onclick="addItem();">
                     Add

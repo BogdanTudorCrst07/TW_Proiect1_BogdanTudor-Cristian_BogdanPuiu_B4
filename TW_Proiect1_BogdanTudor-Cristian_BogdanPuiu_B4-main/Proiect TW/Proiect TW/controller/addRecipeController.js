@@ -10,6 +10,7 @@ let logo = './AddRecipePage/logoRecipeCentralNormal-01.png'
 let script = './AddRecipePage/addR.js'
 const Recipe = require('../models/recipe')
 const { isAuth } = require('../routes/isAuth')
+var propose=require('propose')
 
 function getHTML(req, res) {
     try {
@@ -152,35 +153,78 @@ module.exports.addRecipe = async (req, res) => {
             res.end()
             return
         }
-        if (!req.body.desciption) {
+        if (!req.body.time) {
             console.log('err4')
             res.statusCode = 400
             res.write(JSON.stringify({ success: false, message: '"description" is required' }))
             res.end()
             return
         }
-
-    
+        if (!req.body.finish) {
+            console.log('err5')
+            res.statusCode = 400
+            res.write(JSON.stringify({ success: false, message: '"description" is required' }))
+            res.end()
+            return
+        }
+        if (!req.body.difficulty) {
+            console.log('err6')
+            res.statusCode = 400
+            res.write(JSON.stringify({ success: false, message: '"description" is required' }))
+            res.end()
+            return
+        }
+        if (!req.body.steps) {
+            console.log('err7')
+            res.statusCode = 400
+            res.write(JSON.stringify({ success: false, message: '"description" is required' }))
+            res.end()
+            return
+        }
+        if (!req.body.nrSteps) {
+            console.log('err8')
+            res.statusCode = 400
+            res.write(JSON.stringify({ success: false, message: '"description" is required' }))
+            res.end()
+            return
+        }
         const recipe = await Recipe.findOne({ name: req.body.name })
         if (recipe) {
+
             res.statusCode = 403
             res.write(JSON.stringify({ success: false, message: 'name is already being used' }))
             res.end()
         } else {
+            var container = await Ingredient.find({})
+            var dictionary = []
+            container.forEach(element => {
+                dictionary.push(element.name)
+            })
+            req.body.ingredients.forEach(function(part,index){
+                if(propose(this[index],dictionary,{
+                    threshold: 0.5
+                })!=undefined){
+                this[index]=propose(this[index],dictionary,{
+                    threshold: 0.5
+                })
+            }
+            },req.body.ingredients);
             const recipe_ = new Recipe({
                 name: req.body.name,
-                owener: req.body.owner,
+                owner: req.body.owner,
                 ingredients: req.body.ingredients,
-                desciption: req.body.desciption
+                time: req.body.time,
+                finish: req.body.finish,
+                difficulty: req.body.difficulty,
+                steps: req.body.steps
             })
             console.log(recipe_)
             req.body.ingredients.forEach(async (ingredient) => {
                 console.log(ingredient)
-                const aux = await Ingredient.findOne({ name: ingredient})
+                const aux = await Ingredient.findOne({ name: ingredient })
                 if (aux) {
-                    res.statusCode = 403
-                    res.write(JSON.stringify({ success: false, message: 'ingredient is already being used' }))
-                    
+
+
                     //res.end()
                 }
                 else {
@@ -193,12 +237,12 @@ module.exports.addRecipe = async (req, res) => {
                             console.log(err)
                             res.statusCode = 500
                             res.write(JSON.stringify({ success: false, message: 'Internal server error' }))
-                         
+
                         }
                         else {
                             res.statusCode = 200
                             res.write(JSON.stringify({ success: true, message: 'ingredient created' }))
-                            
+
                         }
                     })
                 }

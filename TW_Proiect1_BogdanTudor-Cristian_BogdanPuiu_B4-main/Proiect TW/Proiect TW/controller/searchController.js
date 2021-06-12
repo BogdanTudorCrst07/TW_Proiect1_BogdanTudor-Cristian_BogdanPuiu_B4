@@ -11,8 +11,8 @@ let icon = './SearchPage/favicon.ico'
 const Recipe = require('../models/recipe.js')
 const { ourUrl } = require('../utilities/const')
 const { port } = require('../utilities/const')
-var propose=require('propose')
-const Ingredient=require('../models/ingredient')
+const Ingredient = require('../models/ingredient')
+let propose = require('propose')
 
 
 function getHTML(req, res) {
@@ -168,25 +168,33 @@ module.exports.filterRecipes = async (req, res) => {
             res.end()
             return
         }
-        var container=await Ingredient.find({})
-        var dictionary=[]
-        container.forEach(element=>{
+        var container = await Ingredient.find({})
+        var dictionary = []
+        container.forEach(element => {
             dictionary.push(element.name)
         })
         let ingredients = req.body
-        ingredients.forEach(function(part,index){
-            this[index]=propose(this[index],dictionary)
-        },ingredients);
+        console.log(ingredients)
+        console.log(dictionary)
+        ingredients.forEach(function (part, index) {
+            if (propose(this[index], dictionary,{
+                threshold: 0.5
+            }) != undefined) {
+                this[index] = propose(this[index], dictionary,{
+                    threshold: 0.5
+                })
+            }
+        }, ingredients);
         console.log(ingredients)
         let recipe = await Recipe.find({ ingredients: { $all: ingredients } })
         console.log(recipe)
-        recipe.sort((a,b)=> a.ingredients.length>b.ingredients.length? 1: -1)
+        recipe.sort((a, b) => a.ingredients.length > b.ingredients.length ? 1 : -1)
         if (!recipe[0]) {
             res.statusCode = 403
             res.write(JSON.stringify({ success: false, message: 'not a recipe found' }))
             res.end()
         } else {
-            
+
             res.statusCode = 200
             res.write(JSON.stringify({ success: true, recipe }))
             res.end()
