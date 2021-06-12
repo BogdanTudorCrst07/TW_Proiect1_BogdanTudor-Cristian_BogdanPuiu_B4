@@ -16,14 +16,15 @@
 .topNavBar {
     height: 30%;
 }
+
 .search_result {
     color: white;
     font-family: 'Prata', serif;
     text-align: left;
     font-size: 15px;
-    position:absolute;
-     left:80px;
-     width:30%;
+    position: absolute;
+    left: 80px;
+    width: 30%;
     line-height: 25px;
     margin-bottom: 50px;
 }
@@ -117,6 +118,31 @@ a:hover {
     font-size: 25px;
     text-align: center;
     color: white;
+}
+
+.custom-select {
+    margin-top: 6%;
+    margin-bottom: 9%;
+    text-align: center;
+    font-size: 30px;
+    border-color: #fff transparent transparent transparent;
+    width: 200px;
+}
+
+.option0 {
+    display: none;
+}
+
+option {
+    font-size: 14px;
+}
+
+select {
+    width: 220px;
+    height: 40px;
+    font-size: 14px;
+    text-align: center;
+    margin-left: 44%;
 }
 
 

@@ -15,8 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Prata&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&family=Prata&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&family=Prata&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -45,21 +44,26 @@
 
         <input type="search" value="" placeholder="Just type your ingredients:" class="searchBarItem" name="search">
         <div class="buttons">
+            <div class="custom-select">
+                <select name="option" id="option-selecter">
+                    <option value="0" class="option0">Filter by:</option>
+                    <option value="1">Time Spent</option>
+                    <option value="2">Difficulty</option>
+                    <option value="3">Number of Steps</option>
+                  </select>
+            </div>
             <button type="button" class="exploreBtn" onclick="searchItem();">
                 Search
             </button>
 
             <div id="search-results-container" class="search_result">
-                
+
             </div>
             <a href="../AddRecipePage/addR.html" style="text-decoration: none;"><button type="button"
                     class="exploreBtn">
                     Add One
                 </button></a>
         </div>
-
-        <h2 class="description"> Millions of recipes at a touch of a button.</h2>
-        <h2 class="description2"> Cooking made easier than ever!</h2>
 
     </div>
 </body>
