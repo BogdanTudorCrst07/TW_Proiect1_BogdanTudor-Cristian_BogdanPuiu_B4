@@ -13,9 +13,13 @@ function login(){
             },
             body: JSON.stringify(user)
         }
-    ).then(res=> res.json()).then(function (response) {
-     
+    ).then(res => res.json()).then(function (response) {
+           window.localStorage.setItem("auth",response)
         })
+}
 
-    
+if(window.localStorage.getItem("auth")!=null){
+    document.addEventListener('DOMContentLoaded', (event) => {
+       document.getElementById("loginBtn").style.display="none";
+      })
 }

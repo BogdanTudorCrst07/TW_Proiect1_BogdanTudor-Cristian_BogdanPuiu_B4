@@ -173,8 +173,9 @@ module.exports.login = async (req, res) => {
         const user = await User.findOne({ name: req.body.name })
         if (user) {
             if (bcrypt.compareSync(req.body.password, user.password)) {
-                const token = jwt.sign(req.body, constants.secret)
-                res.write(JSON.stringify({ succes: true, token: token }))
+                const token = await jwt.sign(req.body, constants.secret)
+                
+                res.write(JSON.stringify(token))
                 res.end()
             }
             else {
