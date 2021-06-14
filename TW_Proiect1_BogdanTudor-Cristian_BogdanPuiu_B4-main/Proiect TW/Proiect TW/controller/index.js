@@ -14,7 +14,7 @@ let { endBackgroundIndex } = require('../utilities/const')
 let { logoForLabelIndex1 } = require('../utilities/const')
 let { logoForLabelIndex2 } = require('../utilities/const')
 let { logoForLabelIndex3 } = require('../utilities/const')
-
+let script='./PaginaPrincipala/index.js'
 
 
 
@@ -313,6 +313,26 @@ function getIndexCSS(req, res) {
     res.end('Internal server error')
   }
 }
+function getScript(req, res) {
+  try {
+    res.statusCode = 200
+    res.setHeader('Content-Type', 'text/javascript')
+    fs.readFile(script, null, function (error, script) {
+      if (error) {
+        res.statusCode = 500
+        res.setHeader('Content-Type', 'text/html')
+        res.end('Internal server error')
+      }
+      else {
+        res.end(script)
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    res.statusCode = 500
+    res.setHeader('Content-Type', 'text/html')
+    res.end('Internal server error')
+  }
+}
 
-
-module.exports = { getIndexHTML, getIndexCSS, getLogoCentral, getFrontPageBk, getFavIcon, getDescriptionImg, getUser1, getUser2, getUser3, getEndBk,getLogoLabel1,getLogoLabel2,getLogoLabel3 }
+module.exports = { getIndexHTML, getIndexCSS, getLogoCentral, getFrontPageBk, getFavIcon, getDescriptionImg, getUser1, getUser2, getUser3, getEndBk,getLogoLabel1,getLogoLabel2,getLogoLabel3,getScript }

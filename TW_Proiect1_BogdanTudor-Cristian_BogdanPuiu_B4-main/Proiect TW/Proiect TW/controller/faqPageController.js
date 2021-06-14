@@ -7,7 +7,7 @@ let indexCSS = './FAQ/faqstyle.css'
 let img = './FAQ/logoRecipeCentralNormal-01.png'
 let background = './FAQ/background-title-01.jpg'
 let icon = './FAQ/favicon.ico'
-
+let script='./FAQ/faq.js'
 
 function getIndexHTML(req, res) {
   try {
@@ -121,6 +121,26 @@ function getIcon(req, res) {
   }
 }
 
+function getScript(req, res) {
+  try {
+    res.statusCode = 200
+    res.setHeader('Content-Type', 'text/javascript')
+    fs.readFile(script, null, function (error, script) {
+      if (error) {
+        res.statusCode = 500
+        res.setHeader('Content-Type', 'text/html')
+        res.end('Internal server error')
+      }
+      else {
+        res.end(script)
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    res.statusCode = 500
+    res.setHeader('Content-Type', 'text/html')
+    res.end('Internal server error')
+  }
+}
 
-
-module.exports = { getIndexHTML, getIndexCSS, getImage, getBkTitle, getIcon }
+module.exports = { getIndexHTML, getIndexCSS, getImage, getBkTitle, getIcon,getScript }

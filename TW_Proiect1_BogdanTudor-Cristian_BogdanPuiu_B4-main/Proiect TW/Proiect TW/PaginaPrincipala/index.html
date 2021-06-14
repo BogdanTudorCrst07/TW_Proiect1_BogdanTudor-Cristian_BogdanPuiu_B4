@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home-RecipeCentral</title>
+    <script src="index.js"></script>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="favicon.ico">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -38,7 +39,10 @@
                     <a href="#" class="linker" style="text-decoration:none">Home</a>
                 </li>
                 <li class="navbarItem">
-                    <a href="..\Login\login.html" class="linker" style="text-decoration:none">Login</a>
+                    <a href="../Login/login.html" class="linker" style="text-decoration:none" id="loginBtn">Login</a>
+                </li>
+                <li class="navbarItem">
+                    <a href="../PaginaPrincipala/index.html" class="linker" style="text-decoration:none" id="logoutBtn" onclick="logout();">Logout</a>
                 </li>
             </ul>
         </div>

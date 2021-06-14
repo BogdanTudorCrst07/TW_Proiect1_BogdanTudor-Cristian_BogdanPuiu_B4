@@ -142,7 +142,19 @@ select {
     height: 40px;
     font-size: 14px;
     text-align: center;
-    margin-left: 44%;
+    /* margin-left: 20%; */
+}
+
+.search_result {
+    color: black;
+    font-size: 16px;
+    padding-top: 6%;
+    padding-bottom: 6%;
+}
+
+#recipe-option {
+    padding-top: 6%;
+    padding-bottom: 6%;
 }
 
 

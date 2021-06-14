@@ -38,3 +38,15 @@ function searchItem() {
 
     })
 }
+
+if(window.localStorage.getItem("auth")!=null){
+    document.addEventListener('DOMContentLoaded', (event) => {
+       document.getElementById("loginBtn").style.display="none";
+       document.getElementById("logoutBtn").style.display="visible";
+      })
+}
+else{
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.getElementById("logoutBtn").style.display="none";
+       })
+}

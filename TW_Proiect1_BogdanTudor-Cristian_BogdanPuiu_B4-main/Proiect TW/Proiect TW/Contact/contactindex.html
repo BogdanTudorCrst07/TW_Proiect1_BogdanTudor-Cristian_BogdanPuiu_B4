@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact us</title>
+    <script src="contact.js"></script>
     <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" href="contactstyle.css">
     <link href="https://fonts.googleapis.com/css2?family=Prata&display=swap" rel="stylesheet">
@@ -37,7 +38,10 @@
                 <a href="../PaginaPrincipala/index.html" class="linker" style="text-decoration:none">Home</a>
             </li>
             <li class="navbarItem">
-                <a href="..\Login\login.html" class="linker" style="text-decoration:none">Login</a>
+                <a href="../Login/login.html" class="linker" style="text-decoration:none" id="loginBtn">Login</a>
+            </li>
+            <li class="navbarItem">
+                <a href="../PaginaPrincipala/index.html" class="linker" style="text-decoration:none" id="logoutBtn" onclick="logout();">Logout</a>
             </li>
         </ul>
     </div>

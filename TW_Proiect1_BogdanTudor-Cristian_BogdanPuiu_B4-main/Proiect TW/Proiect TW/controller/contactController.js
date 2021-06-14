@@ -13,6 +13,7 @@ let emailIcon = './Contact/email-icon-01.png'
 let adressIcon = './Contact/adress-icon-01.png'
 let linkedIcon = './Contact/linkedin-icon-01.png'
 let icon = './Contact/favicon.ico'
+let script='./Contact/contact.js'
 
 function getIndexHTML(req, res) {
     try {
@@ -274,6 +275,26 @@ function getIcon(req, res) {
         res.end('Internal server error')
     }
 }
+function getScript(req, res) {
+    try {
+      res.statusCode = 200
+      res.setHeader('Content-Type', 'text/javascript')
+      fs.readFile(script, null, function (error, script) {
+        if (error) {
+          res.statusCode = 500
+          res.setHeader('Content-Type', 'text/html')
+          res.end('Internal server error')
+        }
+        else {
+          res.end(script)
+        }
+      })
+    } catch (e) {
+      console.log(e)
+      res.statusCode = 500
+      res.setHeader('Content-Type', 'text/html')
+      res.end('Internal server error')
+    }
+  }
 
-
-module.exports = { getIndexHTML, getIndexCSS, getTwitter, getBk, getLogo, getInsta, getPhone, getFacebook, getEmail, getAdress, getLinked, getIcon }
+module.exports = { getIndexHTML, getIndexCSS, getTwitter, getBk, getLogo, getInsta, getPhone, getFacebook, getEmail, getAdress, getLinked, getIcon ,getScript}

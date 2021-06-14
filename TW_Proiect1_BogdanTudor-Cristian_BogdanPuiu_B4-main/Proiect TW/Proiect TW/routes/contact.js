@@ -15,6 +15,6 @@ router.get('/Contact/email-icon-01.png',contactController.getEmail)
 router.get('/Contact/adress-icon-01.png',contactController.getAdress)
 router.get('/Contact/linkedin-icon-01.png',contactController.getLinked)
 router.get('/Contact/favicon.ico',contactController.getIcon)
-
+router.get('/Contact/contact.js',contactController.getScript)
 
 module.exports=router
