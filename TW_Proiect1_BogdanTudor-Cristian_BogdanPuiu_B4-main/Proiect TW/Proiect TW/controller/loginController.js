@@ -10,7 +10,6 @@ let script = "./Login/login.js"
 const User = require("../models/user")
 const jwt = require('jsonwebtoken')
 const constants = require('../utilities/const')
-const cookie = require("cookie")
 
 function getLoginHTML(req, res) {
     try {
@@ -176,7 +175,8 @@ module.exports.login = async (req, res) => {
                // console.log(req.body)
                 let userAux={
                     name:req.body.name,
-                    password:user.password
+                    password:user.password,
+                    isAdmin:user.isAdmin   //cripted pass
                 }
                 console.log(userAux)
                 const token = await jwt.sign(userAux, constants.secret)

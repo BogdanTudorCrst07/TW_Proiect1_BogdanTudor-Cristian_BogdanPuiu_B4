@@ -30,4 +30,5 @@ router.get('/PaginaPrincipala/logo2-01.png',indexController.getLogoLabel2)
 router.get('/logo3-01.png',indexController.getLogoLabel3)
 router.get('/PaginaPrincipala/logo3-01.png',indexController.getLogoLabel3)
 router.get('/PaginaPrincipala/index.js',indexController.getScript)
+router.get('/index.js',indexController.getScript)
 module.exports=router

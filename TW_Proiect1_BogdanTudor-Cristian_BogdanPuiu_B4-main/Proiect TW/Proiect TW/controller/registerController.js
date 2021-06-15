@@ -2,7 +2,7 @@ const { exception } = require('console')
 const fs = require('fs')
 
 const bcrypt = require('bcrypt')
-const User=require('../models/user')
+const User = require('../models/user')
 
 let registerHTML = './Register/register.html'
 let registerCSS = './Register/register.css'
@@ -178,8 +178,10 @@ module.exports.register = async (req, res) => {
         } else {
             const user_ = new User({
                 name: req.body.name,
-                password: bcrypt.hashSync(req.body.password, 5)
+                password: bcrypt.hashSync(req.body.password, 5),
+                isAdmin: false
             })
+
             console.log(user_)
             user_.save((err) => {
                 if (err) {

@@ -13,7 +13,8 @@ const { ourUrl } = require('../utilities/const')
 const { port } = require('../utilities/const')
 const Ingredient = require('../models/ingredient')
 let propose = require('propose')
-
+let { secret } = require('../utilities/const')
+const jwt = require('jsonwebtoken')
 
 function getHTML(req, res) {
     try {
@@ -173,22 +174,40 @@ module.exports.filterRecipes = async (req, res) => {
         container.forEach(element => {
             dictionary.push(element.name)
         })
-        let ingredients = req.body
-        console.log(ingredients)
-        console.log(dictionary)
+        let ingredients = req.body.ingreds
+        console.log(req.body.token)
+        //  console.log(ingredients)
+        //  console.log(dictionary)
         ingredients.forEach(function (part, index) {
-            if (propose(this[index], dictionary,{
+            if (propose(this[index], dictionary, {
                 threshold: 0.5
             }) != undefined) {
-                this[index] = propose(this[index], dictionary,{
+                this[index] = propose(this[index], dictionary, {
                     threshold: 0.5
                 })
             }
         }, ingredients);
         console.log(ingredients)
+        //sorted initially by nr of ingredients
+        const token = req.body.token
+        var obj = jwt.verify(token, secret)
+        var response
         let recipe = await Recipe.find({ ingredients: { $all: ingredients } })
-        console.log(recipe)
+       // console.log(recipe)
         recipe.sort((a, b) => a.ingredients.length > b.ingredients.length ? 1 : -1)
+        if (obj.isAdmin) {
+            response = {
+                recipes: recipe,
+                isAmin: true
+            }
+        }
+        else {
+            response = {
+                recipes: recipe,
+                isAmin: false
+            }
+        }
+        console.log(response)
         if (!recipe[0]) {
             res.statusCode = 403
             res.write(JSON.stringify({ success: false, message: 'not a recipe found' }))
@@ -196,7 +215,7 @@ module.exports.filterRecipes = async (req, res) => {
         } else {
 
             res.statusCode = 200
-            res.write(JSON.stringify({ success: true, recipe }))
+            res.write(JSON.stringify( response))
             res.end()
         }
     })
