@@ -190,15 +190,25 @@ module.exports.filterRecipes = async (req, res) => {
         console.log(ingredients)
         //sorted initially by nr of ingredients
         const token = req.body.token
-        var obj = jwt.verify(token, secret)
+        if (token != null) {
+            var obj = jwt.verify(token, secret)
+        }
         var response
         let recipe = await Recipe.find({ ingredients: { $all: ingredients } })
-       // console.log(recipe)
+
         recipe.sort((a, b) => a.ingredients.length > b.ingredients.length ? 1 : -1)
-        if (obj.isAdmin) {
-            response = {
-                recipes: recipe,
-                isAmin: true
+        if (obj != undefined) {
+            if (obj.isAdmin) {
+                response = {
+                    recipes: recipe,
+                    isAmin: true
+                }
+            }
+            else {
+                response = {
+                    recipes: recipe,
+                    isAmin: false
+                }
             }
         }
         else {
@@ -215,7 +225,7 @@ module.exports.filterRecipes = async (req, res) => {
         } else {
 
             res.statusCode = 200
-            res.write(JSON.stringify( response))
+            res.write(JSON.stringify(response))
             res.end()
         }
     })

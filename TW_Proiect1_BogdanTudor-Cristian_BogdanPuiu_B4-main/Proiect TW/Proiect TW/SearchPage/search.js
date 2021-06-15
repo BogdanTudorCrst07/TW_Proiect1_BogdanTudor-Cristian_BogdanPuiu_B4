@@ -47,7 +47,6 @@ function searchItem() {
             container.appendChild(btn)
             }
             aux=aux+1
-
         }
 
         );
