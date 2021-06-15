@@ -230,3 +230,40 @@ module.exports.filterRecipes = async (req, res) => {
         }
     })
 }
+
+module.exports.deleteItem = async (req, res) => {
+    var body = ""
+    req.on("data", function (data) {
+        body += data;
+    })
+    req.on("end", async function () {
+        req.body = body
+        res.setHeader('Content-type', 'application/json')
+
+
+        req.body = JSON.parse(req.body)
+        if (!req.body) {
+            console.log('err1')
+            res.statusCode = 400
+            res.write(JSON.stringify({ success: false, message: '"value" is required' }))
+            res.end()
+            return
+        }
+        const recipe = await Recipe.findOne({ name: req.body })
+        if (recipe) {
+            console.log(recipe)
+            Recipe.deleteOne(recipe).then(rusult=> console.log(`Deleted ${result.deletedCount} item.`)).catch(err => console.error(`Delete failed with error: ${err}`))
+            res.statusCode = 200
+            res.write(JSON.stringify("succes"))
+            res.end()
+        }
+        else {
+            console.log('err2')
+            res.statusCode = 400
+            res.write(JSON.stringify({ success: false, message: '"value" is required' }))
+            res.end()
+            return
+        }
+
+    })
+}

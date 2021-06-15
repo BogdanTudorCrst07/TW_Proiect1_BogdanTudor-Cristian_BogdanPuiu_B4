@@ -10,5 +10,5 @@ router.get('/SearchPage/background-img.png',searchController.getBk)
 router.get('/SearchPage/search.js',searchController.getScript)
 router.get('/SearchPage/favicon.ico',searchController.getIcon)
 router.post('/search/recipe',searchController.filterRecipes)
-
+router.post('/delete/recipe',searchController.deleteItem)
 module.exports=router

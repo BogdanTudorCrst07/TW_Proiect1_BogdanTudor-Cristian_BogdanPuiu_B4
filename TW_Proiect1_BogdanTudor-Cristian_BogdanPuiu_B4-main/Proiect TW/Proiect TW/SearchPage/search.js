@@ -33,7 +33,6 @@ function searchItem() {
         }
         let aux=0
         var isAdmin = response.isAmin
-        console.log(isAdmin)
         response.recipes.forEach(recipe => {
             const btn=document.createElement("BUTTON")
             btn.innerHTML="CLICK TO DELETE"
@@ -43,6 +42,8 @@ function searchItem() {
             recipeWrapper.setAttribute("id", "recipe-option")
             recipeWrapper.innerHTML = `Recipe: ${recipe.name}.<br> Ingredients needed: ${recipe.ingredients}.<br>How to prepare it: ${recipe.steps}.<br>Difficulty: ${recipe.difficulty}.<br>Time to prepare: ${recipe.time} minutes.<br>Time for finishing: ${recipe.finish} minutes`
             container.appendChild(recipeWrapper)
+            btn.setAttribute('onclick',`deleteItem(this.value)`)
+            btn.setAttribute('value',`${recipe.name}`)
             if(isAdmin){
             container.appendChild(btn)
             }
@@ -51,6 +52,23 @@ function searchItem() {
 
         );
 
+    })
+}
+
+function deleteItem(value) {
+    
+    console.log(value)
+    fetch(
+        '/delete/recipe',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(value)
+        }
+    ).then(function(){
+        document.getElementById("searchBtn").click()
     })
 }
 
