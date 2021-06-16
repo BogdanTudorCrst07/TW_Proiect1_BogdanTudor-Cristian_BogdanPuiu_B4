@@ -15,6 +15,8 @@ const Ingredient = require('../models/ingredient')
 let propose = require('propose')
 let { secret } = require('../utilities/const')
 const jwt = require('jsonwebtoken')
+const formidable = require('formidable')
+const path = require('path')
 
 function getHTML(req, res) {
     try {
@@ -252,7 +254,7 @@ module.exports.deleteItem = async (req, res) => {
         const recipe = await Recipe.findOne({ name: req.body })
         if (recipe) {
             console.log(recipe)
-            Recipe.deleteOne(recipe).then(rusult=> console.log(`Deleted ${result.deletedCount} item.`)).catch(err => console.error(`Delete failed with error: ${err}`))
+            Recipe.deleteOne(recipe).then(rusult => console.log(`Deleted ${result.deletedCount} item.`)).catch(err => console.error(`Delete failed with error: ${err}`))
             res.statusCode = 200
             res.write(JSON.stringify("succes"))
             res.end()
@@ -264,6 +266,52 @@ module.exports.deleteItem = async (req, res) => {
             res.end()
             return
         }
+
+    })
+}
+
+module.exports.addPhoto = async (req, res) => {
+    var body = ""
+    req.on("data", function (data) {
+        body += data;
+    })
+    req.on("end", async function () {
+        req.body = body
+        res.setHeader('Content-type', 'application/json')
+
+        //console.log(req.headers)
+      //  req.body = JSON.parse(req.body)
+        if (!req.body) {
+            console.log('err1')
+            res.statusCode = 400
+            res.write(JSON.stringify({ success: false, message: '"value" is required' }))
+            res.end()
+            return
+        }
+        //console.log(req.body)
+        const form = new formidable.IncomingForm()
+        // form.parse(req, function(err, fields, files){
+        //     console.log(files)
+        //     var oldPath = files.uploads.path
+        //     var newPath = path.join('../utilities', 'uploads')
+        //     + '/'+files.photo.name
+        //     var rawData = fs.readFileSync(oldPath)
+        //     fs.writeFile(newPath, rawData, function(err){
+        //         if(err) console.log(err)
+        //         return res.send("Successfully uploaded")
+        //     })
+        // })
+        // form.parse(req.body, function (error, fields, files) {
+        //    fs.readFile(req.body, async function (error, data) {
+        //         console.log(files)
+            
+        // })})
+      //  form.parse(req.body)
+        fs.writeFile('../utilities' + "/uploads/imagine.png", req.body,function(err){
+            console.log("TEST"+err)
+        })
+        res.end()
+
 
     })
 }

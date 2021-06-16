@@ -31,29 +31,38 @@ function searchItem() {
                 response.recipes.sort((a, b) => (a.steps.length > b.steps.length) ? 1 : -1)
                 break
         }
-        let aux=0
+        let aux = 0
         var isAdmin = response.isAmin
         response.recipes.forEach(recipe => {
-            const btn=document.createElement("BUTTON")
-            const addPicture=document.createElement("BUTTON")
-            btn.innerHTML="CLICK TO DELETE"
-            addPicture.setAttribute("id","add-button"+aux)
-            addPicture.innerHTML="Add a picture with the final product"
-            btn.setAttribute("id","delete-button"+aux)
-            btn.setAttribute("name","delete-recipe-btn")
+            const btn = document.createElement("BUTTON")
+            const addPicture = document.createElement("BUTTON")
+            btn.innerHTML = "CLICK TO DELETE"
+            addPicture.setAttribute("id", "add-button" + aux)
+            addPicture.innerHTML = "Submit your photo"
+            btn.setAttribute("id", "delete-button")
+            btn.setAttribute("name", "delete-recipe-btn")
             const recipeWrapper = document.createElement("div")
             recipeWrapper.setAttribute("id", "recipe-option")
             recipeWrapper.innerHTML = `Recipe: ${recipe.name}.<br> Ingredients needed: ${recipe.ingredients}.<br>How to prepare it: ${recipe.steps}.<br>Difficulty: ${recipe.difficulty}.<br>Time to prepare: ${recipe.time} minutes.<br>Time for finishing: ${recipe.finish} minutes`
             container.appendChild(recipeWrapper)
-            btn.setAttribute('onclick',`deleteItem(this.value)`)
-            addPicture.setAttribute('onclick','addPicture(this.value)')
-            btn.setAttribute('value',`${recipe.name}`)
-            addPicture.setAttribute('value',`${recipe.name}`)
-           container.appendChild(addPicture)
-            if(isAdmin){
-            container.appendChild(btn)
+            btn.setAttribute('onclick', `deleteItem(this.value)`)
+            addPicture.setAttribute('onclick', 'addPicture(this.value)')
+            btn.setAttribute('value', `${recipe.name}`)
+            addPicture.setAttribute('value', `${recipe.name}`)
+            container.appendChild(addPicture)
+            addPicture.setAttribute('type', 'submit')
+            var input = document.createElement('input')
+            input.setAttribute('type', 'file')
+            input.setAttribute('accept', '.png')
+            input.setAttribute('id', 'fileButton')
+            input.setAttribute('name', 'fileButton')
+            input.setAttribute('placeholder', 'Upload a file')
+            container.appendChild(input)
+
+            if (isAdmin) {
+                container.appendChild(btn)
             }
-            aux=aux+1
+            aux = aux + 1
         }
 
         );
@@ -62,7 +71,7 @@ function searchItem() {
 }
 
 function deleteItem(value) {
-    
+
     console.log(value)
     fetch(
         '/delete/recipe',
@@ -73,18 +82,34 @@ function deleteItem(value) {
             },
             body: JSON.stringify(value)
         }
-    ).then(function(){
+    ).then(function () {
         document.getElementById("searchBtn").click()
     })
 }
 function addPicture(value) {
-    
-    console.log(value)
+    let photo=document.getElementById("fileButton").files[0]
+    let response={
+        photo,
+        value
+    }
+    console.log(photo)
+    fetch(
+        '/addPhoto/recipe',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'image/png'
+            },
+            body: photo
+        }
+    ).then(function () {
+        document.getElementById("searchBtn").click()
+    })
 }
 
-function logout(){
-    var aux=window.localStorage.getItem("auth")
-    window.localStorage.removeItem("auth",aux)
+function logout() {
+    var aux = window.localStorage.getItem("auth")
+    window.localStorage.removeItem("auth", aux)
 }
 if (window.localStorage.getItem("auth") != null) {
     document.addEventListener('DOMContentLoaded', (event) => {
