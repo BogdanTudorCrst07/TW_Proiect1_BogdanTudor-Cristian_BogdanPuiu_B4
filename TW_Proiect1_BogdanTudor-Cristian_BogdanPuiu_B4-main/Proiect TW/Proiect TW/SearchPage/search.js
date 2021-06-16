@@ -35,7 +35,10 @@ function searchItem() {
         var isAdmin = response.isAmin
         response.recipes.forEach(recipe => {
             const btn=document.createElement("BUTTON")
+            const addPicture=document.createElement("BUTTON")
             btn.innerHTML="CLICK TO DELETE"
+            addPicture.setAttribute("id","add-button"+aux)
+            addPicture.innerHTML="Add a picture with the final product"
             btn.setAttribute("id","delete-button"+aux)
             btn.setAttribute("name","delete-recipe-btn")
             const recipeWrapper = document.createElement("div")
@@ -43,7 +46,10 @@ function searchItem() {
             recipeWrapper.innerHTML = `Recipe: ${recipe.name}.<br> Ingredients needed: ${recipe.ingredients}.<br>How to prepare it: ${recipe.steps}.<br>Difficulty: ${recipe.difficulty}.<br>Time to prepare: ${recipe.time} minutes.<br>Time for finishing: ${recipe.finish} minutes`
             container.appendChild(recipeWrapper)
             btn.setAttribute('onclick',`deleteItem(this.value)`)
+            addPicture.setAttribute('onclick','addPicture(this.value)')
             btn.setAttribute('value',`${recipe.name}`)
+            addPicture.setAttribute('value',`${recipe.name}`)
+           container.appendChild(addPicture)
             if(isAdmin){
             container.appendChild(btn)
             }
@@ -70,6 +76,10 @@ function deleteItem(value) {
     ).then(function(){
         document.getElementById("searchBtn").click()
     })
+}
+function addPicture(value) {
+    
+    console.log(value)
 }
 
 function logout(){
