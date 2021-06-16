@@ -37,7 +37,7 @@ function searchItem() {
             const btn = document.createElement("BUTTON")
             const addPicture = document.createElement("BUTTON")
             btn.innerHTML = "CLICK TO DELETE"
-            addPicture.setAttribute("id", "add-button" + aux)
+            addPicture.setAttribute("id", "add-button")
             addPicture.innerHTML = "Submit your photo"
             btn.setAttribute("id", "delete-button")
             btn.setAttribute("name", "delete-recipe-btn")
