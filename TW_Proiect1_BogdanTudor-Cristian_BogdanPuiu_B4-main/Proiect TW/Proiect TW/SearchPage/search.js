@@ -93,14 +93,14 @@ function addPicture(value) {
         value
     }
     console.log(photo)
+    const formData=new FormData();
+    formData.append("file",photo)
+
     fetch(
         '/addPhoto/recipe',
         {
             method: 'POST',
-            headers: {
-                'Content-Type': 'image/png'
-            },
-            body: photo
+            body: formData
         }
     ).then(function () {
         document.getElementById("searchBtn").click()
