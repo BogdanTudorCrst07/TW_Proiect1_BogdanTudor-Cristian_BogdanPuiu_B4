@@ -17,6 +17,7 @@ let { secret } = require('../utilities/const')
 const jwt = require('jsonwebtoken')
 const formidable = require('formidable')
 const path = require('path')
+const User = require('../models/user.js')
 
 function getHTML(req, res) {
     try {
@@ -203,14 +204,16 @@ module.exports.filterRecipes = async (req, res) => {
             if (obj.isAdmin) {
                 response = {
                     recipes: recipe,
-                    isLogged:true,
+                    name: obj.name,
+                    isLogged: true,
                     isAmin: true
                 }
             }
             else {
                 response = {
                     recipes: recipe,
-                    isLogged:true,
+                    name: obj.name,
+                    isLogged: true,
                     isAmin: false
                 }
             }
@@ -313,22 +316,21 @@ module.exports.getPhotos = async (req, res) => {
         res.setHeader('Content-type', 'application/json')
         try {
             req.body = JSON.parse(req.body)
-            let aux=req.body
+            let aux = req.body
             res.statusCode = 200
             res.setHeader('Content-Type', 'image/png')
             let recipes = await Recipe.findOne({ name: aux })
-            let photoArray=[]
-            recipes.photos.forEach(photo=>{
-                let path='./utilities/uploads/'+photo
-                fs.readFile(path,function (error, path) {
+            let photoArray = []
+            recipes.photos.forEach(photo => {
+                let path = './utilities/uploads/' + photo
+                fs.readFile(path, function (error, path) {
                     if (error) {
                         res.statusCode = 500
                         console.log("error")
-                       // res.setHeader('Content-Type', 'text/html')
-                       // res.end('Internal server error')
+                        // res.setHeader('Content-Type', 'text/html')
+                        // res.end('Internal server error')
                     }
                     else {
-                        console.log(path)
                         res.write(path)
                     }
                 })
@@ -341,5 +343,42 @@ module.exports.getPhotos = async (req, res) => {
             res.setHeader('Content-Type', 'text/html')
             res.end('Internal server error')
         }
+    })
+}
+
+module.exports.addToFav = async (req, res) => {
+    var body = ""
+    req.on("data", function (data) {
+        body += data;
+    })
+    req.on("end", async function () {
+        req.body = body
+        req.body = JSON.parse(req.body)
+        res.setHeader('Content-type', 'application/json')
+        let recipeAux = req.body.recipe
+        let userAux = req.body.user
+        console.log(recipeAux+"<= recipe  user=>"+userAux)
+        //  Recipe.updateOne({ name: recipe.name }, { $push: { photos: result.file.name } })
+        let user =await User.findOne({ name: userAux })
+        console.log(user.favorites)
+        if (!(user.favorites == undefined)) {
+           
+            if (!(user.favorites.includes(recipeAux))) {
+                console.log("TEST2")
+                console.log(recipeAux)
+               await User.updateOne({ name: user.name }, { $push: { favorites: recipeAux } })
+                res.write(JSON.stringify({ success: true }))
+                res.end()
+            }
+            else{
+            res.write(JSON.stringify({ success: false }))
+            res.end()
+            }
+        }
+        else {
+           await User.updateOne({ name: userAux }, { $push: { favorites: recipeAux } })
+           res.end()
+        }
+
     })
 }

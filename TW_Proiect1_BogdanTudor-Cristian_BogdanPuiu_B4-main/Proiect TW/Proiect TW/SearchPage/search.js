@@ -34,6 +34,7 @@ function searchItem() {
         let aux = 0
         var isAdmin = response.isAmin
         var isLogged=response.isLogged
+        var name=response.name
         response.recipes.forEach(recipe => {
             const btn = document.createElement("BUTTON")
             const addPicture = document.createElement("BUTTON")
@@ -41,7 +42,7 @@ function searchItem() {
             const addToFavorites=document.createElement("BUTTON")
             addToFavorites.innerHTML="Add recipe to favorites"
             addToFavorites.setAttribute("id","add-favorite")
-            addToFavorites.setAttribute("value",`${recipe.name}`)
+            addToFavorites.setAttribute("value",`${recipe.name}/${name}`)
             addToFavorites.setAttribute('onclick','addToFavorites(this.value)')
             btn.innerHTML = "CLICK TO DELETE"
             seePhotos.innerHTML="See what others did"
@@ -103,7 +104,11 @@ function deleteItem(value) {
 
 function addToFavorites(value) {
 
-    console.log(value)
+    var aux=value.split('/')
+    response={
+        recipe:aux[0],
+        user:aux[1]
+    }
     fetch(
         '/addfav/recipe',
         {
@@ -111,10 +116,11 @@ function addToFavorites(value) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(value)
+            body: JSON.stringify(response)
         }
-    ).then(function () {
-        document.getElementById("searchBtn").click()
+    ).then(res => res.json()).then(function (response) {
+        console.log(response)
+        
     })
 }
 function displayPhotos(value){
@@ -127,9 +133,9 @@ function displayPhotos(value){
             },
             body: JSON.stringify(value)
         }
-    ).then(res => res.json()).then(function (response) {
+    ).then(function (response) {
         const image = document.createElement("IMG")
-        image.setAttribute("src",response)
+        image.setAttribute("src",JSON.stringify(response))
         const container = document.getElementById("search-results-container")
         container.innerHTML = ""
         container.appendChild(image)
