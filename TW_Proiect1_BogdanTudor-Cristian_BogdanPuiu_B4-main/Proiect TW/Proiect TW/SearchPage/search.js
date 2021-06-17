@@ -16,7 +16,7 @@ function searchItem() {
             body: JSON.stringify(res)
         }
     ).then(res => res.json()).then(function (response) {
-        console.log(response)
+     //   console.log(response)
         const container = document.getElementById("search-results-container")
         container.innerHTML = ""
         var filter = document.getElementsByName("option")[0].value
@@ -33,11 +33,22 @@ function searchItem() {
         }
         let aux = 0
         var isAdmin = response.isAmin
+        var isLogged=response.isLogged
         response.recipes.forEach(recipe => {
             const btn = document.createElement("BUTTON")
             const addPicture = document.createElement("BUTTON")
+            const seePhotos=document.createElement("BUTTON")
+            const addToFavorites=document.createElement("BUTTON")
+            addToFavorites.innerHTML="Add recipe to favorites"
+            addToFavorites.setAttribute("id","add-favorite")
+            addToFavorites.setAttribute("value",`${recipe.name}`)
+            addToFavorites.setAttribute('onclick','addToFavorites(this.value)')
             btn.innerHTML = "CLICK TO DELETE"
+            seePhotos.innerHTML="See what others did"
             addPicture.setAttribute("id", "add-button")
+            seePhotos.setAttribute("id","photos-button")
+            seePhotos.setAttribute("value",`${recipe.name}`)
+            seePhotos.setAttribute('onclick','displayPhotos(this.value)')
             addPicture.innerHTML = "Submit your photo"
             btn.setAttribute("id", "delete-button")
             btn.setAttribute("name", "delete-recipe-btn")
@@ -58,9 +69,12 @@ function searchItem() {
             input.setAttribute('name', 'fileButton')
             input.setAttribute('placeholder', 'Upload a file')
             container.appendChild(input)
-
+            container.appendChild(seePhotos)
             if (isAdmin) {
                 container.appendChild(btn)
+            }
+            if(isLogged){
+                container.appendChild(addToFavorites)
             }
             aux = aux + 1
         }
@@ -86,26 +100,63 @@ function deleteItem(value) {
         document.getElementById("searchBtn").click()
     })
 }
+
+function addToFavorites(value) {
+
+    console.log(value)
+    fetch(
+        '/addfav/recipe',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(value)
+        }
+    ).then(function () {
+        document.getElementById("searchBtn").click()
+    })
+}
+function displayPhotos(value){
+    fetch(
+        '/search/photo',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(value)
+        }
+    ).then(res => res.json()).then(function (response) {
+        const image = document.createElement("IMG")
+        image.setAttribute("src",response)
+        const container = document.getElementById("search-results-container")
+        container.innerHTML = ""
+        container.appendChild(image)
+
+    })
+}
+
+
+
 function addPicture(value) {
     let photo=document.getElementById("fileButton").files[0]
-    let response={
-        photo,
-        value
-    }
-    console.log(photo)
+   console.log(value)
     const formData=new FormData();
     formData.append("file",photo)
-
+    formData.append("name",value)
     fetch(
         '/addPhoto/recipe',
         {
             method: 'POST',
             body: formData
         }
-    ).then(function () {
+    ).then(res => res.json()).then(function () {
         document.getElementById("searchBtn").click()
     })
 }
+
+
 
 function logout() {
     var aux = window.localStorage.getItem("auth")

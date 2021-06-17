@@ -203,12 +203,14 @@ module.exports.filterRecipes = async (req, res) => {
             if (obj.isAdmin) {
                 response = {
                     recipes: recipe,
+                    isLogged:true,
                     isAmin: true
                 }
             }
             else {
                 response = {
                     recipes: recipe,
+                    isLogged:true,
                     isAmin: false
                 }
             }
@@ -251,7 +253,7 @@ module.exports.deleteItem = async (req, res) => {
             res.end()
             return
         }
-        const recipe = await Recipe.findOne({ name: req.body })
+        const recipe = await Recipe.find({ name: req.body })
         if (recipe) {
             console.log(recipe)
             Recipe.deleteOne(recipe).then(rusult => console.log(`Deleted ${result.deletedCount} item.`)).catch(err => console.error(`Delete failed with error: ${err}`))
@@ -271,29 +273,73 @@ module.exports.deleteItem = async (req, res) => {
 }
 
 module.exports.addPhoto = async (req, res) => {
-    // var body = ""
-    // // req.on("data", function (data) {
-    // //     body += data;
-    // // })
- 
-    const form =  new formidable.IncomingForm()
-        
-        form.parse(req, function(err, fields, result){
-            console.log(err)
-            console.log(fields)
-            console.log(result)
-             var oldPath = result.file.path
-            var newPath = path.join('./utilities/uploads',result.file.name)
-            console.log(oldPath)
-            var rawData = fs.readFileSync(oldPath)
-    
-             fs.writeFile(newPath, rawData, function(err){
-               if(err) console.log(err)
-               else{
-                   res.write("Succes")
-               }
-                return  res.end()
-             })
+
+    const form = new formidable.IncomingForm()
+    form.parse(req, async function (err, fields, result) {
+        // console.log(err)
+        // console.log(fields)
+        console.log(fields.name)
+        var oldPath = result.file.path
+        console.log(result.file.name)
+        let recipe = await Recipe.findOne({ name: fields.name })
+        console.log(recipe)
+        let count = recipe.photos.length
+        if (count == undefined) {
+            count = 0
+        }
+        result.file.name = recipe.name + count + '.png'
+        let modifiedFile = await Recipe.updateOne({ name: recipe.name }, { $push: { photos: result.file.name } })
+        //console.log(modifiedFile)
+        var newPath = path.join('./utilities/uploads', result.file.name)
+        var rawData = fs.readFileSync(oldPath)
+
+        fs.writeFile(newPath, rawData, function (err) {
+            if (err) console.log(err)
+            else {
+                res.write("Succes")
+            }
+            return res.end()
         })
-        
+    })
+
+}
+module.exports.getPhotos = async (req, res) => {
+    var body = ""
+    req.on("data", function (data) {
+        body += data;
+    })
+    req.on("end", async function () {
+        req.body = body
+        res.setHeader('Content-type', 'application/json')
+        try {
+            req.body = JSON.parse(req.body)
+            let aux=req.body
+            res.statusCode = 200
+            res.setHeader('Content-Type', 'image/png')
+            let recipes = await Recipe.findOne({ name: aux })
+            let photoArray=[]
+            recipes.photos.forEach(photo=>{
+                let path='./utilities/uploads/'+photo
+                fs.readFile(path,function (error, path) {
+                    if (error) {
+                        res.statusCode = 500
+                        console.log("error")
+                       // res.setHeader('Content-Type', 'text/html')
+                       // res.end('Internal server error')
+                    }
+                    else {
+                        console.log(path)
+                        res.write(path)
+                    }
+                })
+            })
+            res.end()
+            //res.end(photoArray)
+        } catch (e) {
+            //console.log(e)
+            res.statusCode = 500
+            res.setHeader('Content-Type', 'text/html')
+            res.end('Internal server error')
+        }
+    })
 }
