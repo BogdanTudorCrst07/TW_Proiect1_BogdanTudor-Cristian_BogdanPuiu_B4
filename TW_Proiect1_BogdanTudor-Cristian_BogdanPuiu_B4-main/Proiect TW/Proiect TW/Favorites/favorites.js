@@ -55,7 +55,8 @@ function deleteFavorite(value){
             body: JSON.stringify(response)
         }
     ).then(function(response){
-            console.log("SUCCES")
+           document.getElementById("display-button").click()
+         
     })
 }
 
