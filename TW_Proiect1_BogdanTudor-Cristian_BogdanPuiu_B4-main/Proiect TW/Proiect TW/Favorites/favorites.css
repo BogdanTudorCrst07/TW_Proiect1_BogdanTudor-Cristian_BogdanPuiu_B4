@@ -1,0 +1,74 @@
+/*/////////////////////////////TOP NAVBAR/////////////////////////////*/
+
+.topNavBar {
+    background-color: #FFFFFF;
+}
+
+.topLogo {
+    width: 13%;
+    height: 13%;
+    margin-top: 1.3em;
+    margin-bottom: 2em;
+    margin-left: 4em;
+    float: left;
+}
+
+.topNavBar {
+    height: 30%;
+}
+
+.search_result {
+    color: white;
+    font-family: 'Prata', serif;
+    text-align: left;
+    font-size: 15px;
+    position: absolute;
+    left: 80px;
+    width: 30%;
+    line-height: 25px;
+    margin-bottom: 50px;
+}
+
+.navbarItem {
+    float: right;
+    text-align: center;
+    padding: 17px;
+    margin-top: 2em;
+    margin-right: 3em;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+}
+
+a {
+    color: #000000;
+}
+
+a:hover {
+    color: #c2c2c2;
+}
+
+.navbarActions {
+    list-style-type: none;
+}
+
+
+/*/////////////////////////////END TOP NAVBAR/////////////////////////////*/
+
+.favorites-area {
+    width: 100%;
+    /* height: 100vh; */
+    display: flex;
+    align-items: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('background-img.png') center/cover no-repeat fixed;
+    flex-direction: column;
+}
+
+.favorites-display {
+    width: 80%;
+    /* height: 80vh; */
+    background-color: white;
+    border-radius: 28px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    text-align: center;
+}
