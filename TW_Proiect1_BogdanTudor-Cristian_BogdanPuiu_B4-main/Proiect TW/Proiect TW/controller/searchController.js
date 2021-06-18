@@ -179,8 +179,6 @@ module.exports.filterRecipes = async (req, res) => {
         })
         let ingredients = req.body.ingreds
         console.log(req.body.token)
-        //  console.log(ingredients)
-        //  console.log(dictionary)
         ingredients.forEach(function (part, index) {
             if (propose(this[index], dictionary, {
                 threshold: 0.5
@@ -259,7 +257,7 @@ module.exports.deleteItem = async (req, res) => {
         const recipe = await Recipe.find({ name: req.body })
         if (recipe) {
             console.log(recipe)
-            Recipe.deleteOne(recipe).then(rusult => console.log(`Deleted ${result.deletedCount} item.`)).catch(err => console.error(`Delete failed with error: ${err}`))
+            Recipe.deleteOne(recipe).then(result => console.log(`Deleted ${result.deletedCount} item.`)).catch(err => console.error(`Delete failed with error: ${err}`))
             res.statusCode = 200
             res.write(JSON.stringify("succes"))
             res.end()

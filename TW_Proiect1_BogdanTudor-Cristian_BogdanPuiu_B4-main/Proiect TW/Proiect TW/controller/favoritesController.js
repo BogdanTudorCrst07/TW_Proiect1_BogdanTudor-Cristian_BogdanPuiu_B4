@@ -6,9 +6,13 @@ const fs = require('fs')
 let indexHTML = './Favorites/favorites.html'
 let indexCSS = './Favorites/favorites.css'
 let img = './Favorites/logoRecipeCentralNormal-01.png'
-let background = './Favorites/background-img.jpg'
+let background = './Favorites/background-img.png'
 let icon = './Favorites/favicon.ico'
-let script='./Favorites/favorites.js'
+let script = './Favorites/favorites.js'
+let { secret } = require('../utilities/const')
+const jwt = require('jsonwebtoken')
+const User = require('../models/user.js')
+const Recipe = require('../models/recipe.js')
 
 function getHTML(req, res) {
   try {
@@ -144,4 +148,32 @@ function getScript(req, res) {
   }
 }
 
-module.exports = { getHTML, getCSS, getImage, getBkTitle, getIcon,getScript }
+module.exports = { getHTML, getCSS, getImage, getBkTitle, getIcon, getScript }
+
+module.exports.getFavorites = async (req, res) => {
+  var body = ""
+  req.on("data", function (data) {
+    body += data;
+  })
+  req.on("end", async function () {
+    req.body = body
+    req.body = JSON.parse(req.body)
+    res.setHeader('Content-type', 'application/json')
+    var obj = jwt.verify(req.body, secret)
+    let user = await User.findOne({ name: obj.name })
+    let aux = await Recipe.find({ name: user.favorites })
+    aux.sort((a, b) => a.ingredients.length > b.ingredients.length ? 1 : -1)
+  //  console.log(aux)
+    if (!aux[0]) {
+      res.statusCode = 403
+      res.write(JSON.stringify({ success: false, message: 'not a recipe found' }))
+      res.end()
+    } else {
+
+      res.statusCode = 200
+      res.write(JSON.stringify(aux))
+      res.end()
+    }
+
+  })
+}

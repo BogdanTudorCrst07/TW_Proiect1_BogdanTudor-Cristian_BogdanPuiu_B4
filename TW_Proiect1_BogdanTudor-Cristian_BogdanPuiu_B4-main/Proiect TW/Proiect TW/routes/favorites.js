@@ -9,4 +9,5 @@ router.get('/Favorites/logoRecipeCentralNormal-01.png',favoritesController.getIm
 router.get('/Favorites/favicon.ico',favoritesController.getIcon)
 router.get('/Favorites/favorites.js',favoritesController.getScript)
 router.get('/Favorites/background-img.png',favoritesController.getBkTitle)
+router.post('/display/favorites',favoritesController.getFavorites)
 module.exports=router

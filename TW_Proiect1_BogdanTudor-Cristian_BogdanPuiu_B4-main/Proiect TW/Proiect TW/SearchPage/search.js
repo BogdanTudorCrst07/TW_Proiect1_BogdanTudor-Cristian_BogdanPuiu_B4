@@ -35,6 +35,7 @@ function searchItem() {
         var isAdmin = response.isAmin
         var isLogged=response.isLogged
         var name=response.name
+        
         response.recipes.forEach(recipe => {
             const btn = document.createElement("BUTTON")
             const addPicture = document.createElement("BUTTON")
