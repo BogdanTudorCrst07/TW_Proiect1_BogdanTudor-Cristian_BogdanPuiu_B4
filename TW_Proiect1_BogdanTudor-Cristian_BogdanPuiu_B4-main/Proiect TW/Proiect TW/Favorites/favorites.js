@@ -13,3 +13,4 @@ else {
         document.getElementById("logoutBtn").style.display = "none";
     })
 }
+

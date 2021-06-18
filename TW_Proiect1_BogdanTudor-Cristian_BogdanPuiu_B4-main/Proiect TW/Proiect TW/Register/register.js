@@ -24,3 +24,14 @@ function register(){
 
     })
 }
+
+function favorites() {
+    var aux = window.localStorage.getItem("auth")
+    window.localStorage.removeItem("auth", aux)
+}
+if (window.localStorage.getItem("auth") == null) {
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.getElementById("favorites").style.display = "none";
+    })
+}
+
