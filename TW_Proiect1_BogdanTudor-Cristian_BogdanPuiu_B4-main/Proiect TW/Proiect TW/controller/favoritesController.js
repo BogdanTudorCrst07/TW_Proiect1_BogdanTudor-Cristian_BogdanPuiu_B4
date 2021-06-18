@@ -163,7 +163,7 @@ module.exports.getFavorites = async (req, res) => {
     let user = await User.findOne({ name: obj.name })
     let aux = await Recipe.find({ name: user.favorites })
     aux.sort((a, b) => a.ingredients.length > b.ingredients.length ? 1 : -1)
-  //  console.log(aux)
+    //  console.log(aux)
     if (!aux[0]) {
       res.statusCode = 403
       res.write(JSON.stringify({ success: false, message: 'not a recipe found' }))
@@ -175,5 +175,33 @@ module.exports.getFavorites = async (req, res) => {
       res.end()
     }
 
+  })
+}
+
+module.exports.deleteFavorite = async (req, res) => {
+  var body = ""
+  req.on("data", function (data) {
+    body += data;
+  })
+  req.on("end", async function () {
+    req.body = body
+    req.body = JSON.parse(req.body)
+    res.setHeader('Content-type', 'application/json')
+    let auxUser = req.body.user
+    let auxRecipe = req.body.recipe
+    var obj = jwt.verify(auxUser, secret)
+    let user = await User.findOne({ name: obj.name })
+    let recipe = await Recipe.findOne({ name: auxRecipe })
+   //  User.updateOne({ name: user.name }, { $unset: { "favorites" : user.favorites.indexOf(recipe.name)} })
+    let fav=user.favorites
+    let index=user.favorites.indexOf(recipe.name)
+    fav.splice(index,1)
+    console.log(fav)
+    user.favorites=fav
+    User.updateOne({name: user.name},{$set: {favorites: fav}})
+    console.log("SUCCES 1")
+   // aux = User.updateOne({ name: user.name }, { $pull: { favorites: null } })
+    console.log("SUCCES 2")
+    res.end()
   })
 }

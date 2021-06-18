@@ -10,4 +10,5 @@ router.get('/Favorites/favicon.ico',favoritesController.getIcon)
 router.get('/Favorites/favorites.js',favoritesController.getScript)
 router.get('/Favorites/background-img.png',favoritesController.getBkTitle)
 router.post('/display/favorites',favoritesController.getFavorites)
+router.post('/delete/favorite',favoritesController.deleteFavorite)
 module.exports=router
