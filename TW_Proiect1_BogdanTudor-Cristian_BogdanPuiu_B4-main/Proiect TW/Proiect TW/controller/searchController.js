@@ -331,6 +331,9 @@ module.exports.getPhotos = async (req, res) => {
                         // res.end('Internal server error')
                     }
                     else {
+                        //console.log(path)
+                        // res.write(path)
+                       
                         res.write(path)
                     }
                 })
@@ -357,27 +360,26 @@ module.exports.addToFav = async (req, res) => {
         res.setHeader('Content-type', 'application/json')
         let recipeAux = req.body.recipe
         let userAux = req.body.user
-        console.log(recipeAux+"<= recipe  user=>"+userAux)
+        console.log(recipeAux + "<= recipe  user=>" + userAux)
         //  Recipe.updateOne({ name: recipe.name }, { $push: { photos: result.file.name } })
-        let user =await User.findOne({ name: userAux })
+        let user = await User.findOne({ name: userAux })
         console.log(user.favorites)
         if (!(user.favorites == undefined)) {
-           
+
             if (!(user.favorites.includes(recipeAux))) {
-                console.log("TEST2")
                 console.log(recipeAux)
-               await User.updateOne({ name: user.name }, { $push: { favorites: recipeAux } })
+                await User.updateOne({ name: user.name }, { $push: { favorites: recipeAux } })
                 res.write(JSON.stringify({ success: true }))
                 res.end()
             }
-            else{
-            res.write(JSON.stringify({ success: false }))
-            res.end()
+            else {
+                res.write(JSON.stringify({ success: false }))
+                res.end()
             }
         }
         else {
-           await User.updateOne({ name: userAux }, { $push: { favorites: recipeAux } })
-           res.end()
+            await User.updateOne({ name: userAux }, { $push: { favorites: recipeAux } })
+            res.end()
         }
 
     })

@@ -7,7 +7,7 @@ const register=require('./register')
 var router=new Router()
 const search=require('./search')
 const addRecipe=require('./addRecipe')
-
+const favorites=require('./favorites')
 
 router.use('',mainPage)
 router.use('',faq)
@@ -16,6 +16,7 @@ router.use('',login)
 router.use('',register)
 router.use('',search)
 router.use('',addRecipe)
+router.use('',favorites)
 
 //router.get('//logoRecipeCentralNormal-01.png',index)
 //adding a function for every request

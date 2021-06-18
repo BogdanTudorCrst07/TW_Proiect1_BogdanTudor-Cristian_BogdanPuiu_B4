@@ -135,11 +135,13 @@ function displayPhotos(value){
         }
     ).then(function (response) {
         const image = document.createElement("IMG")
+        let img=new Image()
+        img.src=response
+        img.onload=()=>URL.revokeObjectURL(link)
         image.setAttribute("src",JSON.stringify(response))
         const container = document.getElementById("search-results-container")
         container.innerHTML = ""
-        container.appendChild(image)
-
+        container.appendChild(img)
     })
 }
 
