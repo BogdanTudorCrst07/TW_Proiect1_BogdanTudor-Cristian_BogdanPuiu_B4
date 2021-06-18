@@ -198,10 +198,9 @@ module.exports.deleteFavorite = async (req, res) => {
     fav.splice(index,1)
     console.log(fav)
     user.favorites=fav
-    User.updateOne({name: user.name},{$set: {favorites: fav}})
-    console.log("SUCCES 1")
+    user.save()
    // aux = User.updateOne({ name: user.name }, { $pull: { favorites: null } })
-    console.log("SUCCES 2")
+   
     res.end()
   })
 }
