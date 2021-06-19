@@ -151,8 +151,31 @@ function getIcon(req, res) {
     }
 }
 
+function getPhoto(req, res) {
+    try {
+        let img=req.params
+        res.statusCode = 200
+        res.setHeader('Content-Type', 'image/png')
+        fs.readFile(img, null, function (error, img) {
+            if (error) {
+                res.statusCode = 500
+                res.setHeader('Content-Type', 'text/html')
+                res.end('Internal server error')
+            }
+            else {
+                res.end(img)
+            }
+        })
+    } catch (e) {
+        console.log(e)
+        res.statusCode = 500
+        res.setHeader('Content-Type', 'text/html')
+        res.end('Internal server error')
+    }
+}
 
-module.exports = { getHTML, getCSS, getImage, getBk, getScript, getIcon }
+
+module.exports = { getHTML, getCSS, getImage, getBk, getScript, getIcon,getPhoto }
 
 
 module.exports.filterRecipes = async (req, res) => {
@@ -254,10 +277,12 @@ module.exports.deleteItem = async (req, res) => {
             res.end()
             return
         }
-        const recipe = await Recipe.find({ name: req.body })
+        console.log("BODY "+req.body)
+        const recipe = await Recipe.findOne({ name: req.body })
+      //  console.log(recipe)
         if (recipe) {
-            console.log(recipe)
-            Recipe.deleteOne(recipe).then(result => console.log(`Deleted ${result.deletedCount} item.`)).catch(err => console.error(`Delete failed with error: ${err}`))
+            console.log(recipe.name)
+            Recipe.deleteOne({name: recipe.name}).then(result => console.log(`Deleted ${result.deletedCount} item.`)).catch(err => console.error(`Delete failed with error: ${err}`))
             res.statusCode = 200
             res.write(JSON.stringify("succes"))
             res.end()
@@ -288,12 +313,12 @@ module.exports.addPhoto = async (req, res) => {
         if (count == undefined) {
             count = 0
         }
-        result.file.name = recipe.name + count + '.png'
+        let aux=recipe.name+count+'.png'
+        result.file.name ='/utilities/uploads/'+ recipe.name + count + '.png'
         let modifiedFile = await Recipe.updateOne({ name: recipe.name }, { $push: { photos: result.file.name } })
         //console.log(modifiedFile)
-        var newPath = path.join('./utilities/uploads', result.file.name)
+        var newPath = path.join('./utilities/uploads', aux)
         var rawData = fs.readFileSync(oldPath)
-
         fs.writeFile(newPath, rawData, function (err) {
             if (err) console.log(err)
             else {
@@ -321,7 +346,7 @@ module.exports.getPhotos = async (req, res) => {
             let photoArray = []
             recipes.photos.forEach(photo => {
                 let path = './utilities/uploads/' + photo
-                fs.readFile(path, function (error, path) {
+                fs.readFile(path, function (error, buffer) {
                     if (error) {
                         res.statusCode = 500
                         console.log("error")
@@ -329,10 +354,8 @@ module.exports.getPhotos = async (req, res) => {
                         // res.end('Internal server error')
                     }
                     else {
-                        //console.log(path)
-                        // res.write(path)
-                       
-                        res.write(path)
+                        console.log(buffer)
+                        res.write(buffer)
                     }
                 })
             })

@@ -12,6 +12,6 @@ router.get('/SearchPage/favicon.ico',searchController.getIcon)
 router.post('/search/recipe',searchController.filterRecipes)
 router.post('/delete/recipe',searchController.deleteItem)
 router.post('/addPhoto/recipe',searchController.addPhoto)
-router.post('/search/photo',searchController.getPhotos)
 router.post('/addfav/recipe',searchController.addToFav)
+router.get('/utilities/uploads',searchController.getPhoto)
 module.exports=router

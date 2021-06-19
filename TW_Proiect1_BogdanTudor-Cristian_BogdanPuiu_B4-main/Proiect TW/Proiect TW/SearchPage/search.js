@@ -62,7 +62,6 @@ function searchItem() {
             addPicture.setAttribute('onclick', 'addPicture(this.value)')
             btn.setAttribute('value', `${recipe.name}`)
             addPicture.setAttribute('value', `${recipe.name}`)
-            container.appendChild(addPicture)
             addPicture.setAttribute('type', 'submit')
             var input = document.createElement('input')
             input.setAttribute('type', 'file')
@@ -70,13 +69,29 @@ function searchItem() {
             input.setAttribute('id', 'fileButton')
             input.setAttribute('name', 'fileButton')
             input.setAttribute('placeholder', 'Upload a file')
-            container.appendChild(input)
-            container.appendChild(seePhotos)
-            if (isAdmin) {
-                container.appendChild(btn)
+            const imageRecipeWrapper=document.createElement("div")
+            imageRecipeWrapper.setAttribute("id","images-section")
+            recipe.photos.forEach(photo=>{
+                const image=document.createElement("IMG")
+                image.setAttribute("title",`${recipe.name}`)
+                image.setAttribute("src",photo)
+                image.setAttribute("class","food-image")
+                imageRecipeWrapper.appendChild(image)
+            })
+            if(isLogged){
+                container.appendChild(addPicture)
             }
+            recipeWrapper.appendChild(imageRecipeWrapper)
+            if(isLogged){
+                container.appendChild(input)
+            }
+           
+           // container.appendChild(seePhotos)
             if(isLogged){
                 container.appendChild(addToFavorites)
+            }
+            if (isAdmin) {
+                container.appendChild(btn)
             }
             aux = aux + 1
         }
@@ -136,13 +151,9 @@ function displayPhotos(value){
         }
     ).then(function (response) {
         const image = document.createElement("IMG")
-        let img=new Image()
-        img.src=response
-        img.onload=()=>URL.revokeObjectURL(link)
-        image.setAttribute("src",JSON.stringify(response))
         const container = document.getElementById("search-results-container")
         container.innerHTML = ""
-        container.appendChild(img)
+        container.appendChild(image)
     })
 }
 
@@ -160,7 +171,7 @@ function addPicture(value) {
             method: 'POST',
             body: formData
         }
-    ).then(res => res.json()).then(function () {
+    ).then(function () {
         document.getElementById("searchBtn").click()
     })
 }

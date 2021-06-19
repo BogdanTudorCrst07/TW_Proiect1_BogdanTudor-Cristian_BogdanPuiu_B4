@@ -23,6 +23,11 @@ class Router{
     route(req,res){
 
         var url=req.url.split('?')[0]
+        if(url.includes("/utilities/uploads"))
+        {
+            req.params='.'+url
+            url="/utilities/uploads"
+        }
         console.log('request at '+url)
         if(req.method== 'GET'){
             if(this.getRoutes[url] !== undefined){

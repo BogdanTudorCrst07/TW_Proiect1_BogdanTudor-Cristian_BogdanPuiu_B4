@@ -36,6 +36,12 @@ function getFavorites() {
             recipeWrapper.setAttribute("id", "recipe-option")
             recipeWrapper.innerHTML = `Recipe: ${recipe.name}.<br> Ingredients needed: ${recipe.ingredients}.<br>How to prepare it: ${recipe.steps}.<br>Difficulty: ${recipe.difficulty}.<br>Time to prepare: ${recipe.time} minutes.<br>Time for finishing: ${recipe.finish} minutes`
             container.appendChild(recipeWrapper)
+            recipe.photos.forEach(photo=>{
+                const image=document.createElement("IMG")
+                image.setAttribute("src",photo)
+                image.setAttribute("class","food-image")
+                recipeWrapper.appendChild(image)
+            })
             container.appendChild(btn)
         })
     })
@@ -56,7 +62,6 @@ function deleteFavorite(value){
         }
     ).then(function(response){
            document.getElementById("display-button").click()
-         
     })
 }
 
