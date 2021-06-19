@@ -283,6 +283,11 @@ select {
     width: 80%;
 }
 
+.food-image {
+    width: 20%;
+    padding-top: 6%;
+}
+
 
 /*/////////////////////////////END Search Area/////////////////////////////*/
 
