@@ -405,3 +405,27 @@ module.exports.addToFav = async (req, res) => {
 
     })
 }
+
+module.exports.removePhoto = async (req, res) => {
+    var body = ""
+    req.on("data", function (data) {
+        body += data;
+    })
+    req.on("end", async function () {
+        req.body = body
+        res.setHeader('Content-type', 'application/json')
+
+
+        req.body = JSON.parse(req.body)
+        console.log(req.body)
+        const recipe = await Recipe.findOne({ name: req.body.recipeName })
+        let photo='/utilities/uploads/'+req.body.photoRecipe
+        let photos=recipe.photos
+        let index=recipe.photos.indexOf(photo)
+        console.log(index)
+        photos.splice(index,1)
+        recipe.photos=photos
+        recipe.save()
+        res.end()
+    })
+}

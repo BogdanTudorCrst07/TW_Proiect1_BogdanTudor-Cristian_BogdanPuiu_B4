@@ -75,8 +75,18 @@ function searchItem() {
                 const image=document.createElement("IMG")
                 image.setAttribute("title",`${recipe.name}`)
                 image.setAttribute("src",photo)
+                let arr=photo.split('/')
+                let photoValue=arr[3]
+                const deletePhoto=document.createElement("BUTTON")
+                deletePhoto.setAttribute("value",`${recipe.name},${photoValue}`)
+                deletePhoto.setAttribute("onclick","deletePhoto(this.value)")
+                deletePhoto.setAttribute("id","photo-deleter")
+                deletePhoto.innerHTML="Delete photo"
                 image.setAttribute("class","food-image")
                 imageRecipeWrapper.appendChild(image)
+                if(isAdmin){
+                    imageRecipeWrapper.appendChild(deletePhoto)
+                }
             })
             if(isLogged){
                 container.appendChild(addPicture)
@@ -86,7 +96,6 @@ function searchItem() {
                 container.appendChild(input)
             }
            
-           // container.appendChild(seePhotos)
             if(isLogged){
                 container.appendChild(addToFavorites)
             }
@@ -174,6 +183,25 @@ function addPicture(value) {
     ).then(function () {
         document.getElementById("searchBtn").click()
     })
+}
+
+function deletePhoto(value){
+    let aux=value.split(',')
+    let request={
+        recipeName: aux[0],
+        photoRecipe: aux[1]
+    }
+    fetch(
+        '/remove/photo',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(request)
+        }).then(function(){
+                document.getElementsByClassName("exploreBtn")[0].click()
+        })
 }
 
 

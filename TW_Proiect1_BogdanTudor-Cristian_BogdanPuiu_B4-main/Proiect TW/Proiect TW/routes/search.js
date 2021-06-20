@@ -14,4 +14,5 @@ router.post('/delete/recipe',searchController.deleteItem)
 router.post('/addPhoto/recipe',searchController.addPhoto)
 router.post('/addfav/recipe',searchController.addToFav)
 router.get('/utilities/uploads',searchController.getPhoto)
+router.post('/remove/photo',searchController.removePhoto)
 module.exports=router

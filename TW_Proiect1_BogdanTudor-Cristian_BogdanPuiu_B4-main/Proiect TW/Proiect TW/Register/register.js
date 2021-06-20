@@ -1,6 +1,6 @@
 
-function register(){
-    var user={
+function register() {
+    var user = {
         name: document.getElementsByName("name")[0].value,
         password: document.getElementsByName("password")[0].value
     }
@@ -9,19 +9,17 @@ function register(){
         {
             method: 'POST',
             headers: {
-                'Content-Type':'application/json'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(user)
         }
-    ).then(function(response){
-        if(!response.ok)
-        {
-            onError(response.json())
+    ).then(res => res.json()).then(function (response) {
+        if (response.message.includes("name is already being used")) {
+            alert("Name already taken.")
         }
         else {
-            onSucces(response.json())
+            document.getElementsByClassName("exploreBtn")[0].click()
         }
-
     })
 }
 
