@@ -434,3 +434,35 @@ module.exports.removePhoto = async (req, res) => {
         res.end()
     })
 }
+
+module.exports.searchFilter= async (req,res)=>{
+        var body = ""
+        req.on("data", function (data) {
+            body += data;
+        })
+        req.on("end", async function () {
+            req.body = body
+            res.setHeader('Content-type', 'application/json')
+    
+            req.body = JSON.parse(req.body)
+            let recipes
+           switch(req.body.filter)
+           {
+               case "popularity":
+                    recipes=await Recipe.find({})
+                   recipes.sort((a, b) => a.popularity > b.popularity ? 1 : -1)
+                   break
+                case "time":
+                     recipes=await Recipe.find({ time: req.body.value})
+                    break
+                case "difficulty":
+                     recipes=await Recipe.find({difficulty:req.body.value})
+                    break;
+                case "finish":   
+                     recipes= await Recipe.find({finish: req.body.value})
+                    break; 
+           }
+           recipes.sort((a, b) => a.popularity > b.popularity ? 1 : -1)
+            res.end(JSON.stringify(response))
+        })
+}
