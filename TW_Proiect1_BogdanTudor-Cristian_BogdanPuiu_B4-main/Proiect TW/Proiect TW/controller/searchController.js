@@ -279,7 +279,6 @@ module.exports.deleteItem = async (req, res) => {
         }
         console.log("BODY "+req.body)
         const recipe = await Recipe.findOne({ name: req.body })
-      //  console.log(recipe)
         if (recipe) {
             console.log(recipe.name)
             Recipe.deleteOne({name: recipe.name}).then(result => console.log(`Deleted ${result.deletedCount} item.`)).catch(err => console.error(`Delete failed with error: ${err}`))

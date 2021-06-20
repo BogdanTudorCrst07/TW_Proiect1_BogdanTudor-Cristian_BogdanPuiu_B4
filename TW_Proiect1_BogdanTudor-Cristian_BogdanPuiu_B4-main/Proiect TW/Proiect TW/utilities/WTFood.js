@@ -2,8 +2,6 @@ const http=require('http')
 const {port} = require('../utilities/const')
 const mongoose=require('mongoose')
 const {db_url}=require('../utilities/const')
-// const {db_link}=require('../utilities/const')
-//const mongoose=require('mongoose')
 
 class WTFood{
     constructor(port,router){

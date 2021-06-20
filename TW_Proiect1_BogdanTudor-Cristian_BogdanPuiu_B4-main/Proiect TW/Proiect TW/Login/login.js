@@ -15,12 +15,13 @@ function login() {
         }
     ).then(res => res.json()).then(function (response) {
         if (response.success == false) {
-                    alert("Connection failed. Invalid username/password")
+            alert("Connection failed. Invalid username/password")
         }
-       else {window.localStorage.setItem("auth", response)
-        document.getElementById("homeBtn").click()
-        alert("You are now logged in!")
-    }
+        else {
+            window.localStorage.setItem("auth", response)
+            document.getElementById("homeBtn").click()
+            alert("You are now logged in!")
+        }
 
     })
 }
