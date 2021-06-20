@@ -216,7 +216,8 @@ module.exports.addRecipe = async (req, res) => {
                 time: req.body.time,
                 finish: req.body.finish,
                 difficulty: req.body.difficulty,
-                steps: req.body.steps
+                steps: req.body.steps,
+                popularity: 0
             })
             console.log(recipe_)
             req.body.ingredients.forEach(async (ingredient) => {
@@ -225,7 +226,7 @@ module.exports.addRecipe = async (req, res) => {
                 if (aux) {
 
 
-                    //res.end()
+                
                 }
                 else {
                     console.log("Igredientul este : " + ingredient)

@@ -9,6 +9,7 @@ const Recipe = model('Recipe', {
     difficulty: Number,
     steps: [String],
     nrSteps: Number,
+    popularity:Number,
     photos: [String]
 })
 module.exports = Recipe

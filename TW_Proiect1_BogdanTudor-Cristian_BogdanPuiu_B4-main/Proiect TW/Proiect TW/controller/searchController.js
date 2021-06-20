@@ -389,6 +389,9 @@ module.exports.addToFav = async (req, res) => {
             if (!(user.favorites.includes(recipeAux))) {
                 console.log(recipeAux)
                 await User.updateOne({ name: user.name }, { $push: { favorites: recipeAux } })
+                let recipe=await Recipe.findOne({name: recipeAux})
+                recipe.popularity=recipe.popularity+1
+                recipe.save()
                 res.write(JSON.stringify({ success: true }))
                 res.end()
             }
@@ -399,6 +402,9 @@ module.exports.addToFav = async (req, res) => {
         }
         else {
             await User.updateOne({ name: userAux }, { $push: { favorites: recipeAux } })
+            let recipe=await Recipe.findOne({name: recipeAux})
+            recipe.popularity=recipe.popularity+1
+            recipe.save()
             res.end()
         }
 

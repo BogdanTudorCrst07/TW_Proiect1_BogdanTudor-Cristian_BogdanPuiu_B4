@@ -192,6 +192,8 @@ module.exports.deleteFavorite = async (req, res) => {
     var obj = jwt.verify(auxUser, secret)
     let user = await User.findOne({ name: obj.name })
     let recipe = await Recipe.findOne({ name: auxRecipe })
+    recipe.popularity=recipe.popularity-1
+    recipe.save()
    //  User.updateOne({ name: user.name }, { $unset: { "favorites" : user.favorites.indexOf(recipe.name)} })
     let fav=user.favorites
     let index=user.favorites.indexOf(recipe.name)

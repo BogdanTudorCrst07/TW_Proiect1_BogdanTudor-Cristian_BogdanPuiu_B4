@@ -144,7 +144,12 @@ function addToFavorites(value) {
             body: JSON.stringify(response)
         }
     ).then(res => res.json()).then(function (response) {
-        console.log(response)
+       if(response.success==false){
+           alert("Error at adding the recipe to favorites")
+       }
+       else {
+           alert("Added succesfully")
+       }
         
     })
 }
