@@ -1,11 +1,13 @@
 function searchItem() {
     var aux = document.getElementsByName("search")[0].value
+    if(aux!=null){
     var ingreds = aux.split(',')
     var token = window.localStorage.getItem("auth")
     var res = {
         ingreds: ingreds,
         token: token
     }
+
     fetch(
         '/search/recipe',
         {
@@ -15,6 +17,7 @@ function searchItem() {
             },
             body: JSON.stringify(res)
         }
+        
     ).then(res => res.json()).then(function (response) {
      //   console.log(response)
         const container = document.getElementById("search-results-container")
@@ -109,6 +112,7 @@ function searchItem() {
 
     })
 }
+}
 
 function deleteItem(value) {
 
@@ -186,7 +190,7 @@ function addPicture(value) {
             body: formData
         }
     ).then(function () {
-        document.getElementById("searchBtn").click()
+        document.getElementsByClassName("exploreBtn")[0].click()
     })
 }
 
