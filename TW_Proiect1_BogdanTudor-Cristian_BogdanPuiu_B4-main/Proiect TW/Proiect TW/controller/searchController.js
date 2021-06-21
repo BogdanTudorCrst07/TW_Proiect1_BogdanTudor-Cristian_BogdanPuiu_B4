@@ -301,8 +301,6 @@ module.exports.addPhoto = async (req, res) => {
 
     const form = new formidable.IncomingForm()
     form.parse(req, async function (err, fields, result) {
-        // console.log(err)
-        // console.log(fields)
 
         var oldPath = result.file.path
         console.log(result.file.name)
@@ -319,11 +317,9 @@ module.exports.addPhoto = async (req, res) => {
         else {
             integer = 0
         }
-
         let aux = recipe.name + integer.toString() + '.png'
         result.file.name = '/utilities/uploads/' + recipe.name + integer.toString() + '.png'
         let modifiedFile = await Recipe.updateOne({ name: recipe.name }, { $push: { photos: result.file.name } })
-        //console.log(modifiedFile)
         var newPath = path.join('./utilities/uploads', aux)
         var rawData = fs.readFileSync(oldPath)
         fs.writeFile(newPath, rawData, function (err) {
@@ -357,8 +353,7 @@ module.exports.getPhotos = async (req, res) => {
                     if (error) {
                         res.statusCode = 500
                         console.log("error")
-                        // res.setHeader('Content-Type', 'text/html')
-                        // res.end('Internal server error')
+                    
                     }
                     else {
                         console.log(buffer)
@@ -367,9 +362,9 @@ module.exports.getPhotos = async (req, res) => {
                 })
             })
             res.end()
-            //res.end(photoArray)
+           
         } catch (e) {
-            //console.log(e)
+           
             res.statusCode = 500
             res.setHeader('Content-Type', 'text/html')
             res.end('Internal server error')
@@ -389,13 +384,12 @@ module.exports.addToFav = async (req, res) => {
         let recipeAux = req.body.recipe
         let userAux = req.body.user
         console.log(recipeAux + "<= recipe  user=>" + userAux)
-        //  Recipe.updateOne({ name: recipe.name }, { $push: { photos: result.file.name } })
         let user = await User.findOne({ name: userAux })
         console.log(user.favorites)
         if (!(user.favorites == undefined)) {
 
             if (!(user.favorites.includes(recipeAux))) {
-                console.log(recipeAux)
+               // console.log(recipeAux)
                 await User.updateOne({ name: user.name }, { $push: { favorites: recipeAux } })
                 let recipe = await Recipe.findOne({ name: recipeAux })
                 recipe.popularity = recipe.popularity + 1
@@ -403,11 +397,12 @@ module.exports.addToFav = async (req, res) => {
                 res.write(JSON.stringify({ success: true }))
                 res.end()
                 let allRecipes = await Recipe.find({})
-                allRecipes.sort((a, b) => (a.popularity > b.popularity) ? 1 : -1)
+                allRecipes.sort((a, b) => (a.popularity > b.popularity) ? -1 : 1)
                 let data = []
                 const fields = ['ingredients', 'steps', 'photos', '_id', 'name', 'owner', 'time', 'finish', 'difficulty', 'popularity', '__v']
                 allRecipes.forEach(recipe => {
                     data.push(new Object({
+                        'name':recipe.name,
                         'ingredients': recipe.ingredients,
                         'steps': recipe.steps,
                         'photos': recipe.photos,
@@ -423,14 +418,13 @@ module.exports.addToFav = async (req, res) => {
                 const opts = { fields }
                 const parser = new Parser()
                 const csv = parser.parse(data)
-                // console.log(csv)
                 fs.writeFile('./utilities/uploads/file.csv', csv, function (err) {
-                    //console.log(err)
                 })
             }
             else {
                 res.write(JSON.stringify({ success: false }))
                 res.end()
+
             }
         }
         else {
@@ -439,6 +433,29 @@ module.exports.addToFav = async (req, res) => {
             recipe.popularity = recipe.popularity + 1
             recipe.save()
             res.end()
+            let allRecipes = await Recipe.find({})
+            allRecipes.sort((a, b) => (a.popularity > b.popularity) ? -1 : 1)
+            let data = []
+            const fields = ['ingredients', 'steps', 'photos', '_id', 'name', 'owner', 'time', 'finish', 'difficulty', 'popularity', '__v']
+            allRecipes.forEach(recipe => {
+                data.push(new Object({
+                    'ingredients': recipe.ingredients,
+                    'steps': recipe.steps,
+                    'photos': recipe.photos,
+                    '_id': recipe.id,
+                    'owner': recipe.owner,
+                    'time': recipe.time,
+                    'finish': recipe.finish,
+                    'difficulty': recipe.difficulty,
+                    'popularity': recipe.popularity,
+                    '__v': recipe.__v
+                }))
+            })
+            const opts = { fields }
+            const parser = new Parser()
+            const csv = parser.parse(data)
+            fs.writeFile('./utilities/uploads/file.csv', csv, function (err) {
+            })
         }
 
     })

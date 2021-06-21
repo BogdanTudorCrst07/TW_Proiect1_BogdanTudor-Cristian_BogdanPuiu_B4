@@ -151,7 +151,6 @@ module.exports.login = async (req, res) => {
     req.on("end", async function () {
         req.body = body
         res.setHeader('Content-type', 'application/json')
-      //  console.log(req.body)
 
         req.body = JSON.parse(req.body)
         if (!req.body.name) {
@@ -172,7 +171,6 @@ module.exports.login = async (req, res) => {
         const user = await User.findOne({ name: req.body.name })
         if (user) {
             if (bcrypt.compareSync(req.body.password, user.password)) {
-               // console.log(req.body)
                 let userAux={
                     name:req.body.name,
                     password:user.password,

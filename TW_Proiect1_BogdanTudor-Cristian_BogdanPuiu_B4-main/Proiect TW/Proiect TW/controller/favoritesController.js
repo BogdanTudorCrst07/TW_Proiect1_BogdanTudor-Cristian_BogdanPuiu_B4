@@ -13,6 +13,7 @@ let { secret } = require('../utilities/const')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user.js')
 const Recipe = require('../models/recipe.js')
+const { Parser } = require('json2csv')
 
 function getHTML(req, res) {
   try {
@@ -192,41 +193,39 @@ module.exports.deleteFavorite = async (req, res) => {
     var obj = jwt.verify(auxUser, secret)
     let user = await User.findOne({ name: obj.name })
     let recipe = await Recipe.findOne({ name: auxRecipe })
-    recipe.popularity=recipe.popularity-1
+    let fav = user.favorites
+    recipe.popularity = recipe.popularity - 1
     recipe.save()
-   //  User.updateOne({ name: user.name }, { $unset: { "favorites" : user.favorites.indexOf(recipe.name)} })
-    let fav=user.favorites
-    let index=user.favorites.indexOf(recipe.name)
-    fav.splice(index,1)
+    let index = user.favorites.indexOf(recipe.name)
+    fav.splice(index, 1)
     console.log(fav)
-    user.favorites=fav
+    user.favorites = fav
     user.save()
-   // aux = User.updateOne({ name: user.name }, { $pull: { favorites: null } })
     res.end()
     let allRecipes = await Recipe.find({})
-    allRecipes.sort((a,b)=> (a.popularity>b.popularity)?1:-1)
-    let data=[]
-    const fields=['ingredients','steps','photos','_id','name','owner','time','finish','difficulty','popularity','__v']
-    allRecipes.forEach(recipe=>{
-            data.push(new Object({
-                'ingredients':recipe.ingredients,
-                'steps': recipe.steps,
-                'photos':recipe.photos,
-                '_id':recipe.id,
-                'owner': recipe.owner,
-                'time':recipe.time,
-                'finish': recipe.finish,
-                'difficulty':recipe.difficulty,
-                'popularity':recipe.popularity,
-                '__v':recipe.__v
-            }))
+    allRecipes.sort((a, b) => (a.popularity > b.popularity) ? -1 : 1)
+    let data = []
+    const fields = ['ingredients', 'steps', 'photos', '_id', 'name', 'owner', 'time', 'finish', 'difficulty', 'popularity', '__v']
+    allRecipes.forEach(recipe => {
+      data.push(new Object({
+        'ingredients': recipe.ingredients,
+        'steps': recipe.steps,
+        'photos': recipe.photos,
+        '_id': recipe.id,
+        'owner': recipe.owner,
+        'time': recipe.time,
+        'finish': recipe.finish,
+        'difficulty': recipe.difficulty,
+        'popularity': recipe.popularity,
+        '__v': recipe.__v
+      }))
     })
-    const opts={fields}
+    const opts = { fields }
     const parser = new Parser()
     const csv = parser.parse(data)
-   // console.log(csv)
+
     fs.writeFile('./utilities/uploads/file.csv', csv, function (err) {
-        //console.log(err)
+      //console.log(err)
     })
   })
 }

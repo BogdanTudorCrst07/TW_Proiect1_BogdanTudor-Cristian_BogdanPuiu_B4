@@ -21,7 +21,6 @@ function searchItem() {
             }
 
         ).then(res => res.json()).then(function (response) {
-            //   console.log(response)
             const container = document.getElementById("search-results-container")
             container.innerHTML = ""
             var filter = document.getElementsByName("option")[0].value

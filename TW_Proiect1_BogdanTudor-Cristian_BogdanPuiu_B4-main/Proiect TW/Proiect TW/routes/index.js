@@ -18,10 +18,5 @@ router.use('',search)
 router.use('',addRecipe)
 router.use('',favorites)
 
-//router.get('//logoRecipeCentralNormal-01.png',index)
-//adding a function for every request
-
-
-//router.get('/Recipes/recipes.html',indexController.getIndexHTML)
 
 module.exports.index=router
