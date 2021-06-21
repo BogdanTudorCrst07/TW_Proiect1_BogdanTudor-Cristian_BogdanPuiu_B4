@@ -18,6 +18,7 @@
     "cookie-parser": "^1.4.5",
     "domain-based-spellchecker": "^1.0.4",
     "formidable": "^1.2.2",
+    "json2csv": "^5.0.6",
     "jsonwebtoken": "^8.5.1",
     "micro-spelling-correcter": "^1.1.1",
     "mongoose": "^5.12.12",

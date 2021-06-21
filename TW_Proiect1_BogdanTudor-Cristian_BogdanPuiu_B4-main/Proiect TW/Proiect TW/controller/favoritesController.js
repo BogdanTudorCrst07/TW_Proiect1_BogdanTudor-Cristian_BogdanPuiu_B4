@@ -202,7 +202,6 @@ module.exports.deleteFavorite = async (req, res) => {
     user.favorites=fav
     user.save()
    // aux = User.updateOne({ name: user.name }, { $pull: { favorites: null } })
-   
     res.end()
   })
 }

@@ -1,7 +1,7 @@
 const { exception } = require('console')
 const fs = require('fs')
 
-
+const { Parser } = require('json2csv')
 let searchHTML = './SearchPage/search.html'
 let searchCSS = './SearchPage/search.css'
 let image = './SearchPage/logoRecipeCentralNormal-01.png'
@@ -153,7 +153,7 @@ function getIcon(req, res) {
 
 function getPhoto(req, res) {
     try {
-        let img=req.params
+        let img = req.params
         res.statusCode = 200
         res.setHeader('Content-Type', 'image/png')
         fs.readFile(img, null, function (error, img) {
@@ -175,7 +175,7 @@ function getPhoto(req, res) {
 }
 
 
-module.exports = { getHTML, getCSS, getImage, getBk, getScript, getIcon,getPhoto }
+module.exports = { getHTML, getCSS, getImage, getBk, getScript, getIcon, getPhoto }
 
 
 module.exports.filterRecipes = async (req, res) => {
@@ -277,11 +277,11 @@ module.exports.deleteItem = async (req, res) => {
             res.end()
             return
         }
-        console.log("BODY "+req.body)
+        console.log("BODY " + req.body)
         const recipe = await Recipe.findOne({ name: req.body })
         if (recipe) {
             console.log(recipe.name)
-            Recipe.deleteOne({name: recipe.name}).then(result => console.log(`Deleted ${result.deletedCount} item.`)).catch(err => console.error(`Delete failed with error: ${err}`))
+            Recipe.deleteOne({ name: recipe.name }).then(result => console.log(`Deleted ${result.deletedCount} item.`)).catch(err => console.error(`Delete failed with error: ${err}`))
             res.statusCode = 200
             res.write(JSON.stringify("succes"))
             res.end()
@@ -312,8 +312,8 @@ module.exports.addPhoto = async (req, res) => {
         if (count == undefined) {
             count = 0
         }
-        let aux=recipe.name+count+'.png'
-        result.file.name ='/utilities/uploads/'+ recipe.name + count + '.png'
+        let aux = recipe.name + count + '.png'
+        result.file.name = '/utilities/uploads/' + recipe.name + count + '.png'
         let modifiedFile = await Recipe.updateOne({ name: recipe.name }, { $push: { photos: result.file.name } })
         //console.log(modifiedFile)
         var newPath = path.join('./utilities/uploads', aux)
@@ -389,11 +389,36 @@ module.exports.addToFav = async (req, res) => {
             if (!(user.favorites.includes(recipeAux))) {
                 console.log(recipeAux)
                 await User.updateOne({ name: user.name }, { $push: { favorites: recipeAux } })
-                let recipe=await Recipe.findOne({name: recipeAux})
-                recipe.popularity=recipe.popularity+1
+                let recipe = await Recipe.findOne({ name: recipeAux })
+                recipe.popularity = recipe.popularity + 1
                 recipe.save()
                 res.write(JSON.stringify({ success: true }))
                 res.end()
+                let allRecipes = await Recipe.find({})
+                allRecipes.sort((a,b)=> (a.popularity>b.popularity)?1:-1)
+                let data=[]
+                const fields=['ingredients','steps','photos','_id','name','owner','time','finish','difficulty','popularity','__v']
+                allRecipes.forEach(recipe=>{
+                        data.push(new Object({
+                            'ingredients':recipe.ingredients,
+                            'steps': recipe.steps,
+                            'photos':recipe.photos,
+                            '_id':recipe.id,
+                            'owner': recipe.owner,
+                            'time':recipe.time,
+                            'finish': recipe.finish,
+                            'difficulty':recipe.difficulty,
+                            'popularity':recipe.popularity,
+                            '__v':recipe.__v
+                        }))
+                })
+                const opts={fields}
+                const parser = new Parser()
+                const csv = parser.parse(data)
+                console.log(csv)
+                fs.writeFile('./utilities/uploads/file.csv', csv, function (err) {
+                    //console.log(err)
+                })
             }
             else {
                 res.write(JSON.stringify({ success: false }))
@@ -402,8 +427,8 @@ module.exports.addToFav = async (req, res) => {
         }
         else {
             await User.updateOne({ name: userAux }, { $push: { favorites: recipeAux } })
-            let recipe=await Recipe.findOne({name: recipeAux})
-            recipe.popularity=recipe.popularity+1
+            let recipe = await Recipe.findOne({ name: recipeAux })
+            recipe.popularity = recipe.popularity + 1
             recipe.save()
             res.end()
         }
@@ -424,45 +449,44 @@ module.exports.removePhoto = async (req, res) => {
         req.body = JSON.parse(req.body)
         console.log(req.body)
         const recipe = await Recipe.findOne({ name: req.body.recipeName })
-        let photo='/utilities/uploads/'+req.body.photoRecipe
-        let photos=recipe.photos
-        let index=recipe.photos.indexOf(photo)
+        let photo = '/utilities/uploads/' + req.body.photoRecipe
+        let photos = recipe.photos
+        let index = recipe.photos.indexOf(photo)
         console.log(index)
-        photos.splice(index,1)
-        recipe.photos=photos
+        photos.splice(index, 1)
+        recipe.photos = photos
         recipe.save()
         res.end()
     })
 }
 
-module.exports.searchFilter= async (req,res)=>{
-        var body = ""
-        req.on("data", function (data) {
-            body += data;
-        })
-        req.on("end", async function () {
-            req.body = body
-            res.setHeader('Content-type', 'application/json')
-    
-            req.body = JSON.parse(req.body)
-            let recipes
-           switch(req.body.filter)
-           {
-               case "popularity":
-                    recipes=await Recipe.find({})
-                   recipes.sort((a, b) => a.popularity > b.popularity ? 1 : -1)
-                   break
-                case "time":
-                     recipes=await Recipe.find({ time: req.body.value})
-                    break
-                case "difficulty":
-                     recipes=await Recipe.find({difficulty:req.body.value})
-                    break;
-                case "finish":   
-                     recipes= await Recipe.find({finish: req.body.value})
-                    break; 
-           }
-           recipes.sort((a, b) => a.popularity > b.popularity ? 1 : -1)
-            res.end(JSON.stringify(response))
-        })
+module.exports.searchFilter = async (req, res) => {
+    var body = ""
+    req.on("data", function (data) {
+        body += data;
+    })
+    req.on("end", async function () {
+        req.body = body
+        res.setHeader('Content-type', 'application/json')
+        var recipes
+        req.body = JSON.parse(req.body)
+        console.log(req.body.value)
+        switch (req.body.filter) {
+            case "popularity":
+                recipes = await Recipe.find({})
+                recipes.sort((a, b) => a.popularity > b.popularity ? 1 : -1)
+                break
+            case "time":
+                recipes = await Recipe.find({ time: req.body.value })
+                break
+            case "difficulty":
+                recipes = await Recipe.find({ difficulty: req.body.value })
+                break;
+            case "finish":
+                recipes = await Recipe.find({ finish: req.body.value })
+                break
+        }
+        console.log(recipes)
+        res.end(JSON.stringify(recipes))
+    })
 }
