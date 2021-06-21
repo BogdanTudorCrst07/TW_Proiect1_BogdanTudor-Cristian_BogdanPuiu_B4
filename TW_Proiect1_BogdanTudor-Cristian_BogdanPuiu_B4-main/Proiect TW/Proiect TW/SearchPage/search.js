@@ -155,13 +155,16 @@ function searchItem() {
                 recipeWrapper.setAttribute("id", "recipe-option")
                 recipeWrapper.innerHTML = `Recipe: ${recipe.name}.<br> Ingredients needed: ${recipe.ingredients}.<br>How to prepare it: ${recipe.steps}.<br>Difficulty: ${recipe.difficulty}.<br>Time to prepare: ${recipe.time} minutes.<br>Time for finishing: ${recipe.finish} minutes`
                 container.appendChild(recipeWrapper)
+                const imageRecipeWrapper = document.createElement("div")
+                imageRecipeWrapper.setAttribute("id", "images-section")
                 recipe.photos.forEach(photo => {
                     const image = document.createElement("IMG")
                     image.setAttribute("title", `${recipe.name}`)
                     image.setAttribute("src", photo)
                     image.setAttribute("class", "food-image")
-                    recipeWrapper.appendChild(image)
+                    imageRecipeWrapper.appendChild(image)
                 })
+                recipeWrapper.appendChild(imageRecipeWrapper)
                 
             })
         })
