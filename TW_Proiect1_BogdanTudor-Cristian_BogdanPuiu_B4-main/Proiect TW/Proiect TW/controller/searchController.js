@@ -303,17 +303,25 @@ module.exports.addPhoto = async (req, res) => {
     form.parse(req, async function (err, fields, result) {
         // console.log(err)
         // console.log(fields)
-        console.log(fields.name)
+
         var oldPath = result.file.path
         console.log(result.file.name)
         let recipe = await Recipe.findOne({ name: fields.name })
-        console.log(recipe)
-        let count = recipe.photos.length
-        if (count == undefined) {
-            count = 0
+        let count = recipe.photos[recipe.photos.length - 1]
+        if (count != undefined) {
+            let randomValue = count.split('/')
+            count = randomValue[3]
+            count = count.replace(recipe.name, '')
+            count = count.replace(".png", '')
+            var integer = parseInt(count, 10)
+            integer = integer + 1
         }
-        let aux = recipe.name + count + '.png'
-        result.file.name = '/utilities/uploads/' + recipe.name + count + '.png'
+        else {
+            integer = 0
+        }
+
+        let aux = recipe.name + integer.toString() + '.png'
+        result.file.name = '/utilities/uploads/' + recipe.name + integer.toString() + '.png'
         let modifiedFile = await Recipe.updateOne({ name: recipe.name }, { $push: { photos: result.file.name } })
         //console.log(modifiedFile)
         var newPath = path.join('./utilities/uploads', aux)
@@ -395,27 +403,27 @@ module.exports.addToFav = async (req, res) => {
                 res.write(JSON.stringify({ success: true }))
                 res.end()
                 let allRecipes = await Recipe.find({})
-                allRecipes.sort((a,b)=> (a.popularity>b.popularity)?1:-1)
-                let data=[]
-                const fields=['ingredients','steps','photos','_id','name','owner','time','finish','difficulty','popularity','__v']
-                allRecipes.forEach(recipe=>{
-                        data.push(new Object({
-                            'ingredients':recipe.ingredients,
-                            'steps': recipe.steps,
-                            'photos':recipe.photos,
-                            '_id':recipe.id,
-                            'owner': recipe.owner,
-                            'time':recipe.time,
-                            'finish': recipe.finish,
-                            'difficulty':recipe.difficulty,
-                            'popularity':recipe.popularity,
-                            '__v':recipe.__v
-                        }))
+                allRecipes.sort((a, b) => (a.popularity > b.popularity) ? 1 : -1)
+                let data = []
+                const fields = ['ingredients', 'steps', 'photos', '_id', 'name', 'owner', 'time', 'finish', 'difficulty', 'popularity', '__v']
+                allRecipes.forEach(recipe => {
+                    data.push(new Object({
+                        'ingredients': recipe.ingredients,
+                        'steps': recipe.steps,
+                        'photos': recipe.photos,
+                        '_id': recipe.id,
+                        'owner': recipe.owner,
+                        'time': recipe.time,
+                        'finish': recipe.finish,
+                        'difficulty': recipe.difficulty,
+                        'popularity': recipe.popularity,
+                        '__v': recipe.__v
+                    }))
                 })
-                const opts={fields}
+                const opts = { fields }
                 const parser = new Parser()
                 const csv = parser.parse(data)
-               // console.log(csv)
+                // console.log(csv)
                 fs.writeFile('./utilities/uploads/file.csv', csv, function (err) {
                     //console.log(err)
                 })

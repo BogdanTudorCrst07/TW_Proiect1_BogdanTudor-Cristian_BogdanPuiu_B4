@@ -210,7 +210,7 @@ select {
     color: #FFFFFF;
 }
 
-#fileButton {
+.fileButton {
     background-color: #ffffff;
     border-radius: 28px;
     border: 1px solid #000000;
@@ -228,7 +228,7 @@ select {
     margin-bottom: 20px;
 }
 
-#fileButton:hover {
+.fileButton:hover {
     background-color: #000000;
     color: #FFFFFF;
 }

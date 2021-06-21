@@ -26,6 +26,7 @@ class Router{
         if(url.includes("/utilities/uploads"))
         {
             req.params='.'+url
+           req.params= req.params.replace(/%20/g,' ')
             url="/utilities/uploads"
         }
         console.log('request at '+url)

@@ -71,8 +71,9 @@ function searchItem() {
                 var input = document.createElement('input')
                 input.setAttribute('type', 'file')
                 input.setAttribute('accept', '.png')
-                input.setAttribute('id', 'fileButton')
+                input.setAttribute('id', 'fileButton-'+`${recipe.name}`)
                 input.setAttribute('name', 'fileButton')
+                input.setAttribute('class','fileButton')
                 input.setAttribute('placeholder', 'Upload a file')
                 const imageRecipeWrapper = document.createElement("div")
                 imageRecipeWrapper.setAttribute("id", "images-section")
@@ -237,7 +238,7 @@ function searchItem() {
 
 
     function addPicture(value) {
-        let photo = document.getElementById("fileButton").files[0]
+       let photo = document.getElementById("fileButton-"+value).files[0]
         console.log(value)
         const formData = new FormData();
         formData.append("file", photo)
