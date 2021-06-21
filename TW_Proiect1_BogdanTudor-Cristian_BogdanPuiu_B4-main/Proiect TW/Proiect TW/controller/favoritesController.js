@@ -203,5 +203,30 @@ module.exports.deleteFavorite = async (req, res) => {
     user.save()
    // aux = User.updateOne({ name: user.name }, { $pull: { favorites: null } })
     res.end()
+    let allRecipes = await Recipe.find({})
+    allRecipes.sort((a,b)=> (a.popularity>b.popularity)?1:-1)
+    let data=[]
+    const fields=['ingredients','steps','photos','_id','name','owner','time','finish','difficulty','popularity','__v']
+    allRecipes.forEach(recipe=>{
+            data.push(new Object({
+                'ingredients':recipe.ingredients,
+                'steps': recipe.steps,
+                'photos':recipe.photos,
+                '_id':recipe.id,
+                'owner': recipe.owner,
+                'time':recipe.time,
+                'finish': recipe.finish,
+                'difficulty':recipe.difficulty,
+                'popularity':recipe.popularity,
+                '__v':recipe.__v
+            }))
+    })
+    const opts={fields}
+    const parser = new Parser()
+    const csv = parser.parse(data)
+   // console.log(csv)
+    fs.writeFile('./utilities/uploads/file.csv', csv, function (err) {
+        //console.log(err)
+    })
   })
 }

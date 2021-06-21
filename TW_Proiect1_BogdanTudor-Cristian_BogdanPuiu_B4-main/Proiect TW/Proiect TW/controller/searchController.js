@@ -415,7 +415,7 @@ module.exports.addToFav = async (req, res) => {
                 const opts={fields}
                 const parser = new Parser()
                 const csv = parser.parse(data)
-                console.log(csv)
+               // console.log(csv)
                 fs.writeFile('./utilities/uploads/file.csv', csv, function (err) {
                     //console.log(err)
                 })

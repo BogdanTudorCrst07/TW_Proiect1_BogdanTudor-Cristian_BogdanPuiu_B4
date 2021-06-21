@@ -296,6 +296,6 @@ function searchItem() {
         })
     }
     document.addEventListener('DOMContentLoaded', (event) => {
-        document.getElementById("first-searchbar").placeholder = "Just type your ingredients: "+window.localStorage.getItem("history")
+        document.getElementById("first-searchbar").placeholder = "Just type your ingredients: "+window.localStorage.getItem("history")+"(last searched)"
     })
     
